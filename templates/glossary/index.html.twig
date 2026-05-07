@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Glossaire' %}
+
+{% block body %}
+	<div class="container mt-4 p-3 border rounded shadow">
+		<h1>Glossaire</h1>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Nom</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for glossary in glossaries %}
+					<tr>
+						<td>
+							<a href="{{ path('glossary.show', {id: glossary.id}) }}">{{ glossary.word }}</a>
+						</td>
+					</tr>
+				</td>
+			</tbody>
+		</tr>
+	{% endfor %}
+</tbody></table>
+{{ pagerfanta(glossaries) }}
+</div>{% endblock %}

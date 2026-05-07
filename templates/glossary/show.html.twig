@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Glossaire : ' ~ glossary.word %}
+
+{% block body %}
+	<div class="container mt-4">
+
+		{% if glossary is not null %}
+			<h1 class="mb-4">Détails du terme : "{{ glossary.word }}"</h1>
+			<div class="card">
+			<img src="{{ vich_uploader_asset(glossary, 'thumbnailFile') }}" alt="{{ glossary.word }}" class="img-fluid mb-4" style="max-width: 200px;">
+				<div class="card-body">
+					<h5 class="card-title">{{ glossary.word }}</h5>
+					<p class="card-text">{{ glossary.content | nl2br }}</p>
+					<p class="card-text">
+						<strong>Exemples:</strong>
+						{{ glossary.example }}</p>
+				</div>
+			</div>
+		</div>
+	{% else %}
+		<h1 class="mb-4">Terme du glossaire non trouvé</h1>
+		<p>Le terme que vous recherchez n'existe pas.</p>
+	{% endif %}
+
+	<div class="container my-4 justify-content-center d-flex gap-3">
+		<a href="{{ path('glossary.index') }}" class="btn btn-primary">Retour</a>
+	</div>
+{% endblock %}

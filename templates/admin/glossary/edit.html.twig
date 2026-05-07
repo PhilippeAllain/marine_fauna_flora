@@ -1,0 +1,34 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title 'Glossaire : ' ~ glossary.word %}
+
+{% block body %}
+	<h1>{{ glossary.word }}</h1>
+
+
+	<div class="container mt-4 p-3 border rounded shadow">
+
+	
+
+		{% if glossary is not null %}
+			<h1 class="mb-4">Modifier le terme : "{{ glossary.word }}"</h1>
+			<div class="card">
+			<img src="{{ vich_uploader_asset(glossary, 'thumbnailFile') }}" alt="{{ glossary.word }}" class="img-fluid mb-4" style="max-width: 200px;">
+				<div class="card-body">
+					{{ form_start(form) }}
+					{{ form_row(form.word) }}
+					{{ form_row(form.content) }}
+					{{ form_row(form.example) }}
+					{{ form_end(form) }}
+				</div>
+			</div>
+		</div>
+	{% else %}
+		<h1 class="mb-4">Terme du glossaire non trouvé</h1>
+		<p>Le terme que vous essayez de modifier n'existe pas.</p>
+	{% endif %}
+</div>
+
+<div class="container my-4 justify-content-center d-flex gap-3">
+	<a href="{{ path('admin.glossary.index') }}" class="btn btn-primary">Retour</a>
+</div>{% endblock %}
