@@ -6,6 +6,7 @@ use App\Entity\Glossary;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -33,6 +34,11 @@ class GlossaryType extends AbstractType
             ])
             ->add('thumbnailFile', FileType::class, [
                 'label' => 'Miniature',
+                'required' => false,
+            ])
+            ->add('url', UrlType::class, [
+                'label' => 'URL',
+                'empty_data' => '',
                 'required' => false,
             ])
             ->add('save', SubmitType::class, [

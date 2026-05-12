@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Glossary;
+use App\Model\SearchData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
@@ -25,6 +26,22 @@ class GlossaryRepository extends ServiceEntityRepository
    
         return $qb;
         ;
+    }
+
+        public function findBySearch(SearchData $searchData): QueryBuilder
+    {
+        $qb = $this->createQueryBuilder(alias: 'g');
+
+
+        if (!empty($searchData->q)) {
+            $qb = $qb
+                ->andWhere('g.word LIKE :q')
+                ->setParameter('q', "%{$searchData->q}%")
+                ->orderBy('g.word', 'ASC')
+                ->setMaxResults(5);
+        }
+
+        return $qb;
     }
 
     //    /**

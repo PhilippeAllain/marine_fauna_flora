@@ -54,6 +54,10 @@ class Glossary
     )]
     private ?File $thumbnailFile = null;
 
+    #[ORM\Column(length: 550, nullable: true)]
+    #[Assert\Url(message: 'Veuillez entrer une URL valide.')]
+    private ?string $url = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -141,6 +145,18 @@ class Glossary
     public function setThumbnailFile(?File $thumbnailFile): static
     {
         $this->thumbnailFile = $thumbnailFile;
+
+        return $this;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    public function setUrl(?string $url): static
+    {
+        $this->url = $url;
 
         return $this;
     }
