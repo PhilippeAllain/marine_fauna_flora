@@ -37,7 +37,6 @@ final class GlossaryController extends AbstractController
                 'form' => $form->createView(),
                 'searchGlossaries' => $searchGlossaries
             ]);
-            // dd($searchData->q);
         }
 
         $glossaries = Pagerfanta::createForCurrentPageWithMaxPerPage(

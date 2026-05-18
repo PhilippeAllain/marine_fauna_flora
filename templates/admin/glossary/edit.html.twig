@@ -3,17 +3,12 @@
 {% block title 'Glossaire : ' ~ glossary.word %}
 
 {% block body %}
-	<h1>{{ glossary.word }}</h1>
-
-
-	<div class="container mt-4 p-3 border rounded shadow">
-
-	
+	<div class="container border rounded shadow">
 
 		{% if glossary is not null %}
 			<h1 class="mb-4">Modifier le terme : "{{ glossary.word }}"</h1>
 			<div class="card">
-			<img src="{{ vich_uploader_asset(glossary, 'thumbnailFile') }}" alt="{{ glossary.word }}" class="img-fluid mb-4" style="max-width: 200px;">
+				<img src="{{ vich_uploader_asset(glossary, 'thumbnailFile') }}" alt="{{ glossary.word }}" class="img-fluid mb-4" style="max-width: 200px;">
 				<div class="card-body">
 					{{ form_start(form) }}
 					{{ form_row(form.word) }}
