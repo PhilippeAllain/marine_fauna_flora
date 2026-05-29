@@ -2,42 +2,41 @@
 
 namespace App\Repository;
 
-use App\Entity\Glossary;
+use App\Entity\Sea;
 use App\Model\SearchData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
 
-
 /**
- * @extends ServiceEntityRepository<Glossary>
+ * @extends ServiceEntityRepository<Sea>
  */
-class GlossaryRepository extends ServiceEntityRepository
+class SeaRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Glossary::class);
+        parent::__construct($registry, Sea::class);
     }
 
-    public function finndByName(): QueryBuilder
+        public function findByName(): QueryBuilder
     {
-        $qb = $this->createQueryBuilder(alias:'g')
-            ->orderBy('g.word', 'ASC');
+        $qb = $this->createQueryBuilder(alias:'s')
+            ->orderBy('s.name', 'ASC');
    
         return $qb;
         ;
     }
 
-    public function findBySearch(SearchData $searchData): QueryBuilder
+        public function findBySearch(SearchData $searchData): QueryBuilder
     {
-        $qb = $this->createQueryBuilder(alias: 'g');
+        $qb = $this->createQueryBuilder(alias: 's');
 
 
         if (!empty($searchData->q)) {
             $qb = $qb
-                ->andWhere('g.word LIKE :q')
+                ->andWhere('s.name LIKE :q')
                 ->setParameter('q', "%{$searchData->q}%")
-                ->orderBy('g.word', 'ASC')
+                ->orderBy('s.name', 'ASC')
                 ->setMaxResults(5);
         }
 
@@ -45,24 +44,24 @@ class GlossaryRepository extends ServiceEntityRepository
     }
 
     //    /**
-    //     * @return Glossary[] Returns an array of Glossary objects
+    //     * @return Sea[] Returns an array of Sea objects
     //     */
     //    public function findByExampleField($value): array
     //    {
-    //        return $this->createQueryBuilder('g')
-    //            ->andWhere('g.exampleField = :val')
+    //        return $this->createQueryBuilder('s')
+    //            ->andWhere('s.exampleField = :val')
     //            ->setParameter('val', $value)
-    //            ->orderBy('g.id', 'ASC')
+    //            ->orderBy('s.id', 'ASC')
     //            ->setMaxResults(10)
     //            ->getQuery()
     //            ->getResult()
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Glossary
+    //    public function findOneBySomeField($value): ?Sea
     //    {
-    //        return $this->createQueryBuilder('g')
-    //            ->andWhere('g.exampleField = :val')
+    //        return $this->createQueryBuilder('s')
+    //            ->andWhere('s.exampleField = :val')
     //            ->setParameter('val', $value)
     //            ->getQuery()
     //            ->getOneOrNullResult()

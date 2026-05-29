@@ -1,0 +1,28 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title 'Océan/Mer : ' ~ sea.name %}
+
+{% block body %}
+	<div class="container border rounded shadow">
+
+		{% if sea is not null %}
+			<h1 class="mb-4">Modifier l'océan/mer : "{{ sea.name }}"</h1>
+			<div class="card">
+				<img src="{{ vich_uploader_asset(sea, 'thumbnailFile') }}" alt="{{ sea.name }}" class="img-fluid mb-4" style="max-width: 200px;">
+				<div class="card-body">
+					{{ form_start(form) }}
+					{{ form_row(form.name) }}
+					{{ form_row(form.content) }}
+					{{ form_end(form) }}
+				</div>
+			</div>
+		</div>
+	{% else %}
+		<h1 class="mb-4">Océan/mer non trouvé</h1>
+		<p>L'océan/mer que vous essayez de modifier n'existe pas.</p>
+	{% endif %}
+</div>
+
+<div class="container my-4 justify-content-center d-flex gap-3">
+	<a href="{{ path('admin.sea.index') }}" class="btn btn-primary">Retour</a>
+</div>{% endblock %}

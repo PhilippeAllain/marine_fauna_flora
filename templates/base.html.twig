@@ -17,15 +17,6 @@
 				{{ importmap('app') }}
 			{% endblock %}
 		{% endblock %}
-
-		{# {% set frankenphpHotReload = app.request.server.get('FRANKENPHP_HOT_RELOAD') %} #}
-		{#
-														                {% if frankenphpHotReload %}
-														                    <meta name="frankenphp-hot-reload:url" content="{{ frankenphpHotReload }}">
-														                    <script src="https://cdn.jsdelivr.net/npm/idiomorph"></script>
-														                    <script src="https://cdn.jsdelivr.net/npm/frankenphp-hot-reload/+esm" type="module"></script>
-														                {% endif %}
-														                #}
 	</head>
 	<body>
 		<div class="container-fluid">
@@ -42,7 +33,7 @@
 							<a class="nav-link {{ app.current_route() starts with 'glossary' ? 'active' : '' }}" href="{{ path('glossary.index') }}">Glossaire</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">Océans-Mers</a>
+							<a class="nav-link {{ app.current_route() starts with 'sea' ? 'active' : '' }}" href="{{ path('sea.index') }}">Océans-Mers</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link {{ app.current_route() starts with 'contact' ? 'active' : '' }}" href="{{ path('contact') }}">Contact</a>

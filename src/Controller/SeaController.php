@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Repository\GlossaryRepository;
+use App\Repository\SeaRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -14,53 +14,54 @@ use App\Model\SearchData;
 use App\Form\SearchType;
 
 
-#[Route('/glossary', name: 'glossary.', methods: ['GET', 'POST'])]
-final class GlossaryController extends AbstractController
+#[Route('/sea', name: 'sea.', methods: ['GET', 'POST'])]
+final class SeaController extends AbstractController
 {
     #[Route('/index', name: 'index')]
-    public function index(Request $request, GlossaryRepository $glossaryRepository): Response
+    public function index(Request $request, SeaRepository $seaRepository): Response
     {
+
         $searchData = new SearchData();
         $form = $this->createForm(type: SearchType::class, data: $searchData);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $searchData->page = $request->query->getInt(key: 'page', default: 1);
-            $glossaries = Pagerfanta::createForCurrentPageWithMaxPerPage(
-                new QueryAdapter($glossaryRepository->findBySearch($searchData)),
+            $seas = Pagerfanta::createForCurrentPageWithMaxPerPage(
+                new QueryAdapter($seaRepository->findBySearch($searchData)),
                 $request->query->get(key: 'page', default: 1),
                 maxPerPage: 1
             );
 
-            return $this->render('glossary/index.html.twig', [
+            return $this->render('sea/index.html.twig', [
                 'form' => $form->createView(),
-                'glossaries' => $glossaries
+                'seas' => $seas
             ]);
         }
 
-        $glossaries = Pagerfanta::createForCurrentPageWithMaxPerPage(
-            new QueryAdapter($glossaryRepository->finndByName()),
+        $seas = Pagerfanta::createForCurrentPageWithMaxPerPage(
+            new QueryAdapter($seaRepository->findByName()),
             $request->query->get(key: 'page', default: 1),
             maxPerPage: 2
         );
 
-        return $this->render('glossary/index.html.twig', [
+        return $this->render('sea/index.html.twig', [
             'form' => $form->createView(),
-            'glossaries' => $glossaries
+            'seas' => $seas
         ]);
         //dd($request);
     }
 
     #[Route('/show/{id}', name: 'show', requirements: ['id' => Requirement::DIGITS])]
-    public function show(int $id, GlossaryRepository $glossaryRepository): Response
+    public function show(int $id, SeaRepository $seaRepository): Response
     {
-        $glossary = $glossaryRepository->find($id);
+        $sea = $seaRepository->find($id);
 
-        if (!$glossary) {
-            throw $this->createNotFoundException('Glossary not found');
+        if (!$sea) {
+            throw $this->createNotFoundException('Sea not found');
         }
 
-        return $this->render('glossary/show.html.twig', [
-            'glossary' => $glossary
+        return $this->render('sea/show.html.twig', [
+            'sea' => $sea
         ]);
     }
 }

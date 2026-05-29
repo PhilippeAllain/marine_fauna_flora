@@ -1,0 +1,31 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title 'Océan/Mer : ' ~ sea.name %}
+
+{% block body %}
+	<div class="container mt-4">
+
+		{% if sea is not null %}
+			<h1 class="mb-4">Détails de l'océan/mer : "{{ sea.name }}"</h1>
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">{{ sea.name }}</h5>
+					{% if sea.thumbnail %}
+						<div class="card-card-img-top mb-3">
+							<img src="{{ vich_uploader_asset(sea, 'thumbnailFile') }}" alt="{{ sea.name }}" class="img-fluid mb-4" style="max-width: 200px;">
+						</div>
+						<p class="card-text">{{ sea.content | nl2br }}</p>
+						<a href="{{ sea.url }}" target="_blank" class="btn btn-info mb-3">Voir la source</a>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	{% else %}
+		<h1 class="mb-4">Océan/mer non trouvé</h1>
+		<p>L'océan/mer que vous recherchez n'existe pas.</p>
+	{% endif %}
+
+	<div class="container my-4 justify-content-center d-flex gap-3">
+		<a href="{{ path('admin.sea.index') }}" class="btn btn-primary">Retour</a>
+	</div>
+{% endblock %}

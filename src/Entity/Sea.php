@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\GlossaryRepository;
+use App\Repository\SeaRepository;
 use App\Validator\BanWord;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -11,10 +11,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Attribute as Vich;
 
-#[ORM\Entity(repositoryClass: GlossaryRepository::class)]
-#[UniqueEntity(fields: ['word'], message: 'Ce mot existe déjà dans le glossaire.')]
+#[ORM\Entity(repositoryClass: SeaRepository::class)]
+#[UniqueEntity(fields: ['name'], message: 'Ce nom de mer existe déjà.')]
 #[Vich\Uploadable()]
-class Glossary
+class Sea
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -22,20 +22,32 @@ class Glossary
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\Length(min: 2, max: 255, minMessage: 'Le mot doit comporter au moins {{ limit }} caractères.', maxMessage: 'Le mot ne peut pas dépasser {{ limit }} caractères.')]
-    #[Assert\NotBlank(message: 'Le mot ne peut pas être vide.')]
+    #[Assert\NotBlank(message: 'Le nom de la mer ne peut pas être vide.')]
     #[BanWord()]
-    private string $word = '';
+    private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\Length(min: 5, minMessage: 'La définition doit comporter au moins {{ limit }} caractères.')]
     #[Assert\NotBlank(message: 'La définition ne peut pas être vide.')]
-    private string $content = '';
+    private ?string $content = null;
+
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Assert\Length(max: 255, maxMessage: 'L\'exemple ne peut pas dépasser {{ limit }} caractères.')]
-    private ?string $example = null;
+    private ?string $thumbnail = null;
+    
+    #[Vich\UploadableField(mapping: 'seas', fileNameProperty: 'thumbnail')]
+    #[Assert\Image(
+        maxSize: '2M',
+        mimeTypes: ['image/jpeg', 'image/png', 'image/gif'],
+        mimeTypesMessage: 'Veuillez télécharger une image au format JPEG, PNG ou GIF.',
+        maxSizeMessage: 'La taille de l\'image ne doit pas dépasser {{ limit }}.',
+    )]
 
+    private ?File $thumbnailFile = null;
+
+    #[ORM\Column(length: 550, nullable: true)]
+    #[Assert\Url(message: 'Veuillez entrer une URL valide.')]
+    private ?string $url = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
@@ -43,41 +55,24 @@ class Glossary
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-
-    private ?string $thumbnail = null;
-    
-    #[Vich\UploadableField(mapping: 'glossaries', fileNameProperty: 'thumbnail')]
-    #[Assert\Image(
-        maxSize: '2M',
-        mimeTypes: ['image/jpeg', 'image/png', 'image/gif'],
-        mimeTypesMessage: 'Veuillez télécharger une image au format JPEG, PNG ou GIF.',
-        maxSizeMessage: 'La taille de l\'image ne doit pas dépasser {{ limit }}.',
-    )]
-    private ?File $thumbnailFile = null;
-
-    #[ORM\Column(length: 550, nullable: true)]
-    #[Assert\Url(message: 'Veuillez entrer une URL valide.')]
-    private ?string $url = null;
-
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getWord(): string
+    public function getName(): ?string
     {
-        return $this->word;
+        return $this->name;
     }
 
-    public function setWord(string $word): static
+    public function setName(string $name): static
     {
-        $this->word = $word;
+        $this->name = $name;
 
         return $this;
     }
 
-    public function getContent(): string
+    public function getContent(): ?string
     {
         return $this->content;
     }
@@ -89,18 +84,29 @@ class Glossary
         return $this;
     }
 
-    public function getExample(): ?string
+    public function getThumbnail(): ?string
     {
-        return $this->example;
+        return $this->thumbnail;
     }
 
-    public function setExample(?string $example): static
+    public function setThumbnail(?string $thumbnail): static
     {
-        $this->example = $example;
+        $this->thumbnail = $thumbnail;
 
         return $this;
     }
 
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    public function setUrl(?string $url): static
+    {
+        $this->url = $url;
+
+        return $this;
+    }
 
     public function getCreatedAt(): ?\DateTimeImmutable
     {
@@ -126,40 +132,18 @@ class Glossary
         return $this;
     }
 
-    public function getThumbnail(): ?string
-    {
-        return $this->thumbnail;
-    }
-
-    public function setThumbnail(?string $thumbnail): static
-    {
-        $this->thumbnail = $thumbnail;
-
-        return $this;
-    }
-
-    public function getThumbnailFile(): ?File
+    /**
+     * Get the value of thumbnailFile
+     */ 
+    public function getThumbnailFile()
     {
         return $this->thumbnailFile;
     }
 
-
-    public function setThumbnailFile(?File $thumbnailFile): static
+    public function setThumbnailFile(?File$thumbnailFile): static
     {
         $this->thumbnailFile = $thumbnailFile;
-
         return $this;
-    }
-
-    public function getUrl(): ?string
-    {
-        return $this->url;
-    }
-
-    public function setUrl(?string $url): static
-    {
-        $this->url = $url;
-
-        return $this;
+     
     }
 }

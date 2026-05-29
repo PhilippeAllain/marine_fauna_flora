@@ -1,0 +1,46 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title 'Océans-Mers' %}
+
+{% block body %}
+	<div class="container w-75 mt-4 p-3 border rounded shadow">
+		<div class="container p-4">
+			<h1 class="text-center">Océans-Mers</h1>
+		</div>
+		<div class="container p-4">
+			<p>
+				<a class="btn btn-primary btn-sm" href="{{ path('admin.sea.create') }}">Ajouter un océan/mer.</a>
+			</p>
+		</div>
+		<div class="container p-4">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Nom</th>
+						<th style="width: 217px">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for sea in seas %}
+						<tr>
+							<td>
+								<a href="{{ path('admin.sea.show', {id: sea.id}) }}">{{ sea.name }}</a>
+							</td>
+							<td>
+								<div class="d-flex gap-1">
+									<a class="btn btn-primary btn-sm" href="{{ path('admin.sea.edit', {id : sea.id}) }}">Editer</a>
+									<form action="{{ path('admin.sea.delete', {id: sea.id}) }}" method="POST">
+										<input type="hidden" name="_method" value="DELETE">
+										<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ sea.id) }}">
+										<button class="btn btn-danger btn-sm" type="submit">Supprimer</button>
+									</form>
+								</div>
+							</td>
+						</tr>
+					</td>
+				</tbody>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table></div><div class="container p-4">
+<div class="d-flex justify-content-center">{{ pagerfanta(seas) }}</div></div></div>{% endblock %}

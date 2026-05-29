@@ -1,0 +1,100 @@
+<?php
+
+namespace App\Controller\Admin;
+
+use App\Repository\SeaRepository;
+use App\Entity\Sea;
+use App\Form\SeaType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Requirement\Requirement;
+use Pagerfanta\Pagerfanta;
+use Pagerfanta\Doctrine\ORM\QueryAdapter;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+
+#[Route('/admin/sea', name: 'admin.sea.', methods: ['GET'])]
+#[IsGranted('ROLE_ADMIN')]
+final class SeaController extends AbstractController
+{
+    #[Route('/index', name: 'index')]
+
+    public function index(Request $request, SeaRepository $seaRepository): Response
+    {
+
+        $seas = Pagerfanta::createForCurrentPageWithMaxPerPage(
+            new QueryAdapter($seaRepository->findByName()),
+            $request->query->get(key: 'page', default: 1),
+            maxPerPage: 2
+        );
+
+        return $this->render('admin/sea/index.html.twig', [
+            'seas' => $seas,
+        ]);
+    }
+
+    #[Route('/create', name: 'create', methods: ['GET', 'POST'])]
+    public function create(Request $request, EntityManagerInterface $em): Response
+    {
+        // Logic to handle form submission and create a new sea entry
+
+        $sea = new Sea();
+        $form = $this->createForm(SeaType::class, $sea);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($sea);
+            $em->flush();
+            $this->addFlash('success', 'Terme du glossaire créé avec succès !');
+            return $this->redirectToRoute('admin.sea.index');
+        }
+        return $this->render('admin/sea/create.html.twig', [
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/show/{id}', name: 'show', requirements: ['id' => Requirement::DIGITS])]
+    public function show(int $id, SeaRepository $seaRepository): Response
+    {
+        $sea = $seaRepository->find($id);
+
+        if (!$sea) {
+            throw $this->createNotFoundException('Sea not found');
+        }
+
+        return $this->render('admin/sea/show.html.twig', [
+            'sea' => $sea
+        ]);
+    }
+
+    #[Route('/{id}', name: 'edit', methods: ['GET', 'POST'], requirements: ['id' => Requirement::DIGITS])]
+    public function edit(Sea $sea, Request $request, EntityManagerInterface $em): Response
+    {
+        // dd($sea);
+        $form = $this->createForm(SeaType::class, $sea);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            //dd($form->get('thumbnailFile')->getData());
+            $em->flush();
+
+            $this->addFlash('success', 'Le terme du glossaire a été modifié avec succès !');
+            return $this->redirectToRoute('admin.sea.index');
+        }
+
+        return $this->render('admin/sea/edit.html.twig', [
+            'sea' => $sea,
+            'form' => $form
+        ]);
+    }
+
+        #[Route('/{id}/delete', name: 'delete', methods: ['DELETE'], requirements: ['id' => Requirement::DIGITS])]
+    public function remove(Sea $sea, EntityManagerInterface $em): Response
+    {
+        $em->remove($sea);
+        $em->flush();
+        $this->addFlash('success', 'Le terme du glossaire a bien été supprimé');
+        return $this->redirectToRoute('admin.sea.index');
+    }
+}

@@ -13,15 +13,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Requirement\Requirement;
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\Doctrine\ORM\QueryAdapter;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 
 #[Route('/admin/glossary', name: 'admin.glossary.', methods: ['GET'])]
+#[IsGranted('ROLE_ADMIN')]
 final class GlossaryController extends AbstractController
 {
     #[Route('/index', name: 'index')]
-    public function index(Request $request, GlossaryRepository $glossaryRepository, EntityManagerInterface $em): Response
+    public function index(Request $request, GlossaryRepository $glossaryRepository,): Response
     {
-
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $glossaries = Pagerfanta::createForCurrentPageWithMaxPerPage(
             new QueryAdapter($glossaryRepository->finndByName()),
             $request->query->get(key: 'page', default: 1),
