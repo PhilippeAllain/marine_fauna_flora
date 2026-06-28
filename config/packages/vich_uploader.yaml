@@ -9,4 +9,8 @@ vich_uploader:
         seas:
             uri_prefix: /images/seas
             upload_destination: '%kernel.project_dir%/public/images/seas'
-            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer 
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        mammals:
+            uri_prefix: /images/mammals
+            upload_destination: '%kernel.project_dir%/public/images/mammals'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer

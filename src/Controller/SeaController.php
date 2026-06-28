@@ -20,35 +20,23 @@ final class SeaController extends AbstractController
     #[Route('/index', name: 'index')]
     public function index(Request $request, SeaRepository $seaRepository): Response
     {
-
         $searchData = new SearchData();
         $form = $this->createForm(type: SearchType::class, data: $searchData);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $searchData->page = $request->query->getInt(key: 'page', default: 1);
-            $seas = Pagerfanta::createForCurrentPageWithMaxPerPage(
-                new QueryAdapter($seaRepository->findBySearch($searchData)),
-                $request->query->get(key: 'page', default: 1),
-                maxPerPage: 1
-            );
-
-            return $this->render('sea/index.html.twig', [
-                'form' => $form->createView(),
+            $seas = $seaRepository->findBySearch($searchData, $searchData->page, limit: 2);
+            return $this->render('admin/sea/index.html.twig', [
+                'form' => $form,
                 'seas' => $seas
             ]);
         }
-
-        $seas = Pagerfanta::createForCurrentPageWithMaxPerPage(
-            new QueryAdapter($seaRepository->findByName()),
-            $request->query->get(key: 'page', default: 1),
-            maxPerPage: 2
-        );
-
-        return $this->render('sea/index.html.twig', [
-            'form' => $form->createView(),
-            'seas' => $seas
+        $page = $request->query->getInt('page', 1);
+        $seas = $seaRepository->paginateSeas($page);
+        return $this->render('admin/sea/index.html.twig', [
+            'form' => $form,
+            'seas' => $seas,
         ]);
-        //dd($request);
     }
 
     #[Route('/show/{id}', name: 'show', requirements: ['id' => Requirement::DIGITS])]

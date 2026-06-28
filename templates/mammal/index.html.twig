@@ -13,14 +13,14 @@
 			<table class="table table-primary table-striped-columns">
 				<thead>
 					<tr>
-						<th>{{ knp_pagination_sortable(glossaries, 'Nom', 'g.word') }}</th>
+						<th>{{ knp_pagination_sortable(mammals, 'Nom', 'm.name') }}</th>
 					</tr>
 				</thead>
 				<tbody>
-					{% for glossary in glossaries %}
+					{% for mammal in mammals %}
 						<tr>
 							<td>
-								<a href="{{ path('glossary.show', {id: glossary.id}) }}">{{ glossary.word }}</a>
+								<a href="{{ path('mammal.show', {id: mammal.id}) }}">{{ mammal.name }}</a>
 							</td>
 						</tr>
 					</td>

@@ -2,32 +2,40 @@
 
 namespace App\Form;
 
-use App\Entity\Sea;
+use App\Entity\Mammal;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\Event\PostSubmitEvent;
+use Symfony\Component\Validator\Constraints\Image;
 
-class SeaType extends AbstractType
+class MammalType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Nom de la mer',
+                'label' => 'Nom',
+                'empty_data' => '',
+            ])
+            ->add('dci', TextType::class, [
+                'label' => 'DCI',
                 'empty_data' => '',
             ])
             ->add('content', TextareaType::class, [
-                'label' => 'Description',
+                'label' => 'Contenu',
                 'empty_data' => '',
             ])
-            ->add('thumbnailFile', FileType::class)
+            ->add('thumbnailFile', FileType::class, [
+                'label' => 'Image de vignette',
+                'required' => false,
+            ])
             ->add('url', UrlType::class, [
                 'label' => 'URL',
                 'empty_data' => '',
@@ -42,8 +50,9 @@ class SeaType extends AbstractType
 
     public function attachTimestamps(PostSubmitEvent $event): void
     {
+        //dd($event->getData());
         $data = $event->getData();
-        if (!($data instanceof Sea)) {
+        if (!($data instanceof Mammal)) {
             return;
         }
 
@@ -56,7 +65,7 @@ class SeaType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Sea::class,
+            'data_class' => Mammal::class,
         ]);
     }
 }

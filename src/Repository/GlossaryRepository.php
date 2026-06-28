@@ -6,7 +6,8 @@ use App\Entity\Glossary;
 use App\Model\SearchData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Doctrine\ORM\QueryBuilder;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 
 /**
@@ -14,58 +15,37 @@ use Doctrine\ORM\QueryBuilder;
  */
 class GlossaryRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, private PaginatorInterface $paginator)
     {
         parent::__construct($registry, Glossary::class);
     }
 
-    public function finndByName(): QueryBuilder
+    public function paginateGlossaries(int $page): PaginationInterface
     {
-        $qb = $this->createQueryBuilder(alias:'g')
-            ->orderBy('g.word', 'ASC');
-   
-        return $qb;
-        ;
+
+        return $this->paginator->paginate(
+            $this->createQueryBuilder('g')->orderBy('g.word', 'ASC'),
+            $page,
+            2,
+            [
+                'distinct' =>  true,
+                'sortFieldAllowList' => ['g.word'],
+            ]
+        );
     }
 
-    public function findBySearch(SearchData $searchData): QueryBuilder
+       public function findBySearch(SearchData $searchData, int $page, int $limit): PaginationInterface
     {
-        $qb = $this->createQueryBuilder(alias: 'g');
 
+    return $this->paginator->paginate(
+        $this->createQueryBuilder('g')
+            ->where('g.word LIKE :q')
+            ->setParameter('q', "%{$searchData->q}%")
+            ->orderBy('g.word', 'ASC'),
+        $page,
+        $limit,
 
-        if (!empty($searchData->q)) {
-            $qb = $qb
-                ->andWhere('g.word LIKE :q')
-                ->setParameter('q', "%{$searchData->q}%")
-                ->orderBy('g.word', 'ASC')
-                ->setMaxResults(5);
-        }
-
-        return $qb;
+    );
     }
 
-    //    /**
-    //     * @return Glossary[] Returns an array of Glossary objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('g')
-    //            ->andWhere('g.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('g.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Glossary
-    //    {
-    //        return $this->createQueryBuilder('g')
-    //            ->andWhere('g.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
 }

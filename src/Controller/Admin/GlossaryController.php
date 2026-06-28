@@ -11,8 +11,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Requirement\Requirement;
-use Pagerfanta\Pagerfanta;
-use Pagerfanta\Doctrine\ORM\QueryAdapter;
+use App\Model\SearchData;
+use App\Form\SearchType;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 
@@ -21,19 +21,26 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 final class GlossaryController extends AbstractController
 {
     #[Route('/index', name: 'index')]
-    public function index(Request $request, GlossaryRepository $glossaryRepository,): Response
+    public function index(Request $request, GlossaryRepository $glossaryRepository): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
-        $glossaries = Pagerfanta::createForCurrentPageWithMaxPerPage(
-            new QueryAdapter($glossaryRepository->finndByName()),
-            $request->query->get(key: 'page', default: 1),
-            maxPerPage: 2
-        );
+        $searchData = new SearchData();
+        $form = $this->createForm(type: SearchType::class, data: $searchData);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $searchData->page = $request->query->getInt(key: 'page', default: 1);
+            $glossaries = $glossaryRepository->findBySearch($searchData, $searchData->page, limit: 2);
+            return $this->render('admin/glossary/index.html.twig', [
+                'form' => $form,
+                'glossaries' => $glossaries,
 
+            ]);
+        }
+        $page = $request->query->getInt('page', 1);
+        $glossaries = $glossaryRepository->paginateGlossaries($page);
         return $this->render('admin/glossary/index.html.twig', [
-            'glossaries' => $glossaries
+            'form' => $form,
+            'glossaries' => $glossaries,
         ]);
-        //dd($request);
     }
 
     #[Route('/create', name: 'create', methods: ['GET', 'POST'])]

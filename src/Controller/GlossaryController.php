@@ -8,8 +8,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Requirement\Requirement;
-use Pagerfanta\Pagerfanta;
-use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use App\Model\SearchData;
 use App\Form\SearchType;
 
@@ -25,29 +23,19 @@ final class GlossaryController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $searchData->page = $request->query->getInt(key: 'page', default: 1);
-            $glossaries = Pagerfanta::createForCurrentPageWithMaxPerPage(
-                new QueryAdapter($glossaryRepository->findBySearch($searchData)),
-                $request->query->get(key: 'page', default: 1),
-                maxPerPage: 1
-            );
-
+            $glossaries = $glossaryRepository->findBySearch($searchData, $searchData->page, limit: 2);
             return $this->render('glossary/index.html.twig', [
-                'form' => $form->createView(),
-                'glossaries' => $glossaries
+                'form' => $form,
+                'glossaries' => $glossaries,
+
             ]);
         }
-
-        $glossaries = Pagerfanta::createForCurrentPageWithMaxPerPage(
-            new QueryAdapter($glossaryRepository->finndByName()),
-            $request->query->get(key: 'page', default: 1),
-            maxPerPage: 2
-        );
-
+        $page = $request->query->getInt('page', 1);
+        $glossaries = $glossaryRepository->paginateGlossaries($page);
         return $this->render('glossary/index.html.twig', [
-            'form' => $form->createView(),
-            'glossaries' => $glossaries
+            'form' => $form,
+            'glossaries' => $glossaries,
         ]);
-        //dd($request);
     }
 
     #[Route('/show/{id}', name: 'show', requirements: ['id' => Requirement::DIGITS])]

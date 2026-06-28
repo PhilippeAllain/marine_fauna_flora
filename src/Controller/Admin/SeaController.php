@@ -11,8 +11,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Requirement\Requirement;
-use Pagerfanta\Pagerfanta;
-use Pagerfanta\Doctrine\ORM\QueryAdapter;
+use App\Model\SearchData;
+use App\Form\SearchType;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/admin/sea', name: 'admin.sea.', methods: ['GET'])]
@@ -23,14 +23,21 @@ final class SeaController extends AbstractController
 
     public function index(Request $request, SeaRepository $seaRepository): Response
     {
-
-        $seas = Pagerfanta::createForCurrentPageWithMaxPerPage(
-            new QueryAdapter($seaRepository->findByName()),
-            $request->query->get(key: 'page', default: 1),
-            maxPerPage: 2
-        );
-
+        $searchData = new SearchData();
+        $form = $this->createForm(type: SearchType::class, data: $searchData);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $searchData->page = $request->query->getInt(key: 'page', default: 1);
+            $seas = $seaRepository->findBySearch($searchData, $searchData->page, limit: 2);
+            return $this->render('admin/sea/index.html.twig', [
+                'form' => $form,
+                'seas' => $seas                 
+            ]);
+        }
+        $page = $request->query->getInt('page', 1);
+        $seas = $seaRepository->paginateSeas($page);
         return $this->render('admin/sea/index.html.twig', [
+            'form' => $form,
             'seas' => $seas,
         ]);
     }

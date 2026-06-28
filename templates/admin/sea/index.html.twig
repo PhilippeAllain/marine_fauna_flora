@@ -7,16 +7,22 @@
 		<div class="container p-4">
 			<h1 class="text-center">Océans-Mers</h1>
 		</div>
+
+		<div class="mb-3 p-4 border rounded">
+			{% include 'components/_search_data.html.twig' with {'form': form} only %}
+		</div>
+
 		<div class="container p-4">
 			<p>
 				<a class="btn btn-primary btn-sm" href="{{ path('admin.sea.create') }}">Ajouter un océan/mer.</a>
 			</p>
 		</div>
+
 		<div class="container p-4">
 			<table class="table">
 				<thead>
 					<tr>
-						<th>Nom</th>
+						<th>{{ knp_pagination_sortable(seas, 'Nom', 's.name') }}</th>
 						<th style="width: 217px">Actions</th>
 					</tr>
 				</thead>
@@ -43,4 +49,4 @@
 		{% endfor %}
 	</tbody>
 </table></div><div class="container p-4">
-<div class="d-flex justify-content-center">{{ pagerfanta(seas) }}</div></div></div>{% endblock %}
+<div class="d-flex justify-content-center">{{ knp_pagination_render(seas) }}</div></div></div>{% endblock %}

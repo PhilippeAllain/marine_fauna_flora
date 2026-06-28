@@ -35,6 +35,7 @@ class GlossaryType extends AbstractType
             ->add('thumbnailFile', FileType::class, [
                 'label' => 'Miniature',
                 'required' => false,
+
             ])
             ->add('url', UrlType::class, [
                 'label' => 'URL',
@@ -44,11 +45,11 @@ class GlossaryType extends AbstractType
             ->add('save', SubmitType::class, [
                 'label' => 'Enregistrer',
             ])
-            ->addEventListener(FormEvents::POST_SUBMIT, [$this, 'attachTimestamps'])           
+            ->addEventListener(FormEvents::POST_SUBMIT, [$this, 'attachTimestamps'])
         ;
     }
 
-       public function attachTimestamps(PostSubmitEvent $event): void
+    public function attachTimestamps(PostSubmitEvent $event): void
     {
         //dd($event->getData());
         $data = $event->getData();

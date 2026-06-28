@@ -6,41 +6,45 @@ use App\Entity\Sea;
 use App\Model\SearchData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Doctrine\ORM\QueryBuilder;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @extends ServiceEntityRepository<Sea>
  */
 class SeaRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, private PaginatorInterface $paginator)
     {
         parent::__construct($registry, Sea::class);
     }
 
-        public function findByName(): QueryBuilder
+    public function paginateSeas(int $page): PaginationInterface
     {
-        $qb = $this->createQueryBuilder(alias:'s')
-            ->orderBy('s.name', 'ASC');
-   
-        return $qb;
-        ;
+
+        return $this->paginator->paginate(
+            $this->createQueryBuilder('s')->orderBy('s.name', 'ASC'),
+            $page,
+            2,
+            [
+                'distinct' =>  true,
+                'sortFieldAllowList' => ['s.name'],
+            ]
+        );
     }
 
-        public function findBySearch(SearchData $searchData): QueryBuilder
+    public function findBySearch(SearchData $searchData, int $page, int $limit): PaginationInterface
     {
-        $qb = $this->createQueryBuilder(alias: 's');
 
-
-        if (!empty($searchData->q)) {
-            $qb = $qb
-                ->andWhere('s.name LIKE :q')
+        return $this->paginator->paginate(
+            $this->createQueryBuilder('s')
+                ->where('s.name LIKE :q')
                 ->setParameter('q', "%{$searchData->q}%")
-                ->orderBy('s.name', 'ASC')
-                ->setMaxResults(5);
-        }
+                ->orderBy('s.name', 'ASC'),
+            $page,
+            $limit,
 
-        return $qb;
+        );
     }
 
     //    /**
