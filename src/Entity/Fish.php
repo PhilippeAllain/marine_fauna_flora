@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\MammalRepository;
+use App\Repository\FishRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Vich\UploaderBundle\Mapping\Attribute as Vich;
@@ -11,10 +11,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
 
 
-#[ORM\Entity(repositoryClass: MammalRepository::class)]
-#[UniqueEntity(fields: ['name'], message: 'Ce mamifère existe déjà dans le glossaire.')]
+#[ORM\Entity(repositoryClass: FishRepository::class)]
+#[UniqueEntity(fields: ['name'], message: 'Ce poisson existe déjà dans le glossaire.')]
 #[Vich\Uploadable()]
-class Mammal
+class Fish
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -39,7 +39,7 @@ class Mammal
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $thumbnail = null;
 
-    #[Vich\UploadableField(mapping: 'mammals', fileNameProperty: 'thumbnail')]
+    #[Vich\UploadableField(mapping: 'fishes', fileNameProperty: 'thumbnail')]
     #[Assert\Image(
         maxSize: '2M',
         mimeTypes: ['image/jpeg', 'image/png', 'image/gif'],
@@ -155,7 +155,6 @@ class Mammal
         return $this->thumbnailFile;
     }
 
- 
     public function setThumbnailFile(File $thumbnailFile): static
     {
         $this->thumbnailFile = $thumbnailFile;

@@ -20,7 +20,6 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 final class SeaController extends AbstractController
 {
     #[Route('/index', name: 'index')]
-
     public function index(Request $request, SeaRepository $seaRepository): Response
     {
         $searchData = new SearchData();
@@ -78,12 +77,11 @@ final class SeaController extends AbstractController
     #[Route('/{id}', name: 'edit', methods: ['GET', 'POST'], requirements: ['id' => Requirement::DIGITS])]
     public function edit(Sea $sea, Request $request, EntityManagerInterface $em): Response
     {
-        // dd($sea);
         $form = $this->createForm(SeaType::class, $sea);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //dd($form->get('thumbnailFile')->getData());
+            
             $em->flush();
 
             $this->addFlash('success', 'Le terme du glossaire a été modifié avec succès !');

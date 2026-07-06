@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
+/* use App\Entity\User; */
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;

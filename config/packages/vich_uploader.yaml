@@ -14,3 +14,7 @@ vich_uploader:
             uri_prefix: /images/mammals
             upload_destination: '%kernel.project_dir%/public/images/mammals'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        fishes:
+            uri_prefix: /images/fishes
+            upload_destination: '%kernel.project_dir%/public/images/fishes'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer

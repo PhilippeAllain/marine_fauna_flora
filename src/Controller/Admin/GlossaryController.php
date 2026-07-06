@@ -46,7 +46,6 @@ final class GlossaryController extends AbstractController
     #[Route('/create', name: 'create', methods: ['GET', 'POST'])]
     public function create(Request $request, EntityManagerInterface $em): Response
     {
-        // Logic to handle form submission and create a new glossary entry
 
         $glossary = new Glossary();
         $form = $this->createForm(GlossaryType::class, $glossary);
@@ -79,7 +78,6 @@ final class GlossaryController extends AbstractController
     #[Route('/{id}', name: 'edit', methods: ['GET', 'POST'], requirements: ['id' => Requirement::DIGITS])]
     public function edit(Glossary $glossary, Request $request, EntityManagerInterface $em): Response
     {
-        // dd($glossary);
         $form = $this->createForm(GlossaryType::class, $glossary);
         $form->handleRequest($request);
 

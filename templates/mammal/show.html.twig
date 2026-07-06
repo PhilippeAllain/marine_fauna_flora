@@ -11,10 +11,7 @@
 				<img src="{{ vich_uploader_asset(mammal, 'thumbnailFile') }}" alt="{{ mammal.name }}" class="card-img-top img-fluid mb-4 p-4" style="max-width: 200px;">
 				<div class="card-body">
 					<h2 class="card-header">{{ mammal.name }}</h2>
-					<h3 class="card-title m-3">{{ mammal.description | nl2br }}</h3>
-					<h4 class="card-text m-3">
-						<strong>Exemples :</strong>
-						{{ mammal.example }}</h4>
+					<h3 class="card-title m-3">{{ mammal.content | nl2br }}</h3>
 					<p class="card-text m-3 text-center">
 						<a href="{{ mammal.url }}" target="_blank" class="btn btn-info mb-3">Voir la source</a>
 					</p>
@@ -26,4 +23,5 @@
 	<div class="container my-4 justify-content-center d-flex gap-3">
 		<a href="{{ path('mammal.index') }}" class="btn btn-primary">Retour</a>
 	</div>
+	
 {% endblock %}

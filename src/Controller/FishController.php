@@ -7,51 +7,51 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Requirement\Requirement;
-use App\Repository\MammalRepository;
+use App\Repository\FishRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Entity\Mammal;
-use App\Form\MammalType;
+use App\Entity\Fish;
+use App\Form\FishType;
 use App\Model\SearchData;
 use App\Form\SearchType;
 
 
-#[Route('/mammal', name: 'mammal.', methods: ['GET', 'POST'])]
+#[Route('/fish', name: 'fish.', methods: ['GET'])]
 
-final class MammalController extends AbstractController
+final class FishController extends AbstractController
 {
     #[Route('/index', name: 'index')]
-    public function index(Request $request, MammalRepository $mammalRepository): Response
+    public function index(Request $request, FishRepository $fishRepository): Response
     {
         $searchData = new SearchData();
         $form = $this->createForm(type: SearchType::class, data: $searchData);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $searchData->page = $request->query->getInt(key: 'page', default: 1);
-            $mammals = $mammalRepository->findBySearch($searchData, $searchData->page, limit: 2);
-            return $this->render('mammal/index.html.twig', [
+            $fishes = $fishRepository->findBySearch($searchData, $searchData->page, limit: 2);
+            return $this->render('fish/index.html.twig', [
                 'form' => $form,
-                'mammals' => $mammals
+                'fishes' => $fishes
             ]);
         }
         $page = $request->query->getInt('page', 1);
-        $mammals = $mammalRepository->paginateMammals($page);
-        return $this->render('mammal/index.html.twig', [
+        $fishes = $fishRepository->paginateFishes($page);
+        return $this->render('fish/index.html.twig', [
             'form' => $form,
-            'mammals' => $mammals,
+            'fishes' => $fishes,
         ]);
     }
 
     #[Route('/show/{id}', name: 'show', requirements: ['id' => Requirement::DIGITS])]
-    public function show(int $id, MammalRepository $mammalRepository): Response
+    public function show(int $id, FishRepository $fishRepository): Response
     {
-        $mammal = $mammalRepository->find($id);
+        $fish = $fishRepository->find($id);
 
-        if (!$mammal) {
-            throw $this->createNotFoundException('Mammal not found');
+        if (!$fish) {
+            throw $this->createNotFoundException('Fish not found');
         }
 
-        return $this->render('mammal/show.html.twig', [
-            'mammal' => $mammal
+        return $this->render('fish/show.html.twig', [
+            'fish' => $fish
         ]);
     }
 

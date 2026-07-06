@@ -8,8 +8,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Requirement\Requirement;
-use Pagerfanta\Pagerfanta;
-use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use App\Model\SearchData;
 use App\Form\SearchType;
 
@@ -26,14 +24,14 @@ final class SeaController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $searchData->page = $request->query->getInt(key: 'page', default: 1);
             $seas = $seaRepository->findBySearch($searchData, $searchData->page, limit: 2);
-            return $this->render('admin/sea/index.html.twig', [
+            return $this->render('sea/index.html.twig', [
                 'form' => $form,
                 'seas' => $seas
             ]);
         }
         $page = $request->query->getInt('page', 1);
         $seas = $seaRepository->paginateSeas($page);
-        return $this->render('admin/sea/index.html.twig', [
+        return $this->render('sea/index.html.twig', [
             'form' => $form,
             'seas' => $seas,
         ]);

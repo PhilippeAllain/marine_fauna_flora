@@ -36,10 +36,10 @@
 							</a>
 							<ul class="dropdown-menu">
 								<li class="nav-item">
-									<a class="nav-link {{ app.current_route() starts with 'admin.mammal.index' ? 'active' : '' }}" href="{{ path('admin.mammal.index') }}">Mammifères</a>
+									<a class="nav-link {{ app.current_route() starts with 'admin.mammal.' ? 'active' : '' }}" href="{{ path('admin.mammal.index') }}">Mammifères</a>
 								</li>
 								<li>
-									<a class="dropdown-item" href="#">Another action</a>
+									<a class="dropdown-item {{ app.current_route() starts with 'admin.fish.' ? 'active' : '' }}" href="{{ path('admin.fish.index') }}">Poissons</a>
 								</li>
 								<li>
 									<a class="dropdown-item" href="#">Something else here</a>

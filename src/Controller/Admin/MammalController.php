@@ -13,9 +13,10 @@ use App\Entity\Mammal;
 use App\Form\MammalType;
 use App\Model\SearchData;
 use App\Form\SearchType;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[Route('/mammal', name: 'mammal.', methods: ['GET', 'POST'])]
-
+#[Route('admin/mammal', name: 'admin.mammal.', methods: ['GET', 'POST'])]
+#[IsGranted('ROLE_ADMIN')]
 final class MammalController extends AbstractController
 {
     #[Route('/index', name: 'index')]
@@ -27,14 +28,14 @@ final class MammalController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $searchData->page = $request->query->getInt(key: 'page', default: 1);
             $mammals = $mammalRepository->findBySearch($searchData, $searchData->page, limit: 2);
-            return $this->render('mammal/index.html.twig', [
+            return $this->render('/admin/mammal/index.html.twig', [
                 'form' => $form,
                 'mammals' => $mammals
             ]);
         }
         $page = $request->query->getInt('page', 1);
         $mammals = $mammalRepository->paginateMammals($page);
-        return $this->render('mammal/index.html.twig', [
+        return $this->render('/admin/mammal/index.html.twig', [
             'form' => $form,
             'mammals' => $mammals,
         ]);
@@ -43,8 +44,6 @@ final class MammalController extends AbstractController
     #[Route('/create', name: 'create', methods: ['GET', 'POST'])]
     public function create(Request $request, EntityManagerInterface $em): Response
     {
-        // Logic to handle form submission and create a new glossary entry
-
         $mammal = new Mammal();
         $form = $this->createForm(MammalType::class, $mammal);
         $form->handleRequest($request);
@@ -76,15 +75,12 @@ final class MammalController extends AbstractController
     #[Route('/{id}', name: 'edit', methods: ['GET', 'POST'], requirements: ['id' => Requirement::DIGITS])]
     public function edit(Mammal $mammal, Request $request, EntityManagerInterface $em): Response
     {
-        // dd($mammal);
         $form = $this->createForm(MammalType::class, $mammal);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-
             $em->flush();
-
             $this->addFlash('success', 'Le mammifère a été modifié avec succès !');
             return $this->redirectToRoute('admin.mammal.index');
         }

@@ -1,0 +1,35 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title 'Poisson : ' ~ fish.name %}
+
+{% block body %}
+	<div class="container w-50 mt-4 p-3 border rounded shadow">
+
+		{% if fish is not null %}
+			<h1 class="mb-4">Détails du poisson : "{{ fish.name }}"</h1>
+			<div class="card">
+				<div class="card-body">
+					{% if fish.thumbnail %}
+						<div class="card-card-img-top mb-3">
+							<img src="{{ vich_uploader_asset(fish, 'thumbnailFile') }}" alt="{{ fish.name }}" class="img-fluid mb-4" style="max-width: 200px;">
+						</div>
+					{% endif %}
+					<div class="card-body">
+						<h2 class="card-header">{{ fish.name }}</h2>
+
+						<h3 class="card-title m-3">{{ fish.content | nl2br }}</h3>
+						<p class="card-text m-3 text-center">
+							<a href="{{ fish.url }}" target="_blank" class="btn btn-info mb-3">Voir la source</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		{% else %}
+			<h1 class="mb-4">Poisson non trouvé</h1>
+			<p>Le poisson que vous recherchez n'existe pas.</p>
+		{% endif %}
+
+		<div class="container my-4 justify-content-center d-flex gap-3">
+			<a href="{{ path('admin.fish.index') }}" class="btn btn-primary">Retour</a>
+		</div>
+	{% endblock %}
