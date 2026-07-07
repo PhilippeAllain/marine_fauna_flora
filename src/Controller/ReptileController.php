@@ -7,48 +7,48 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Requirement\Requirement;
-use App\Repository\MammalRepository;
+use App\Repository\ReptileRepository;
 use App\Model\SearchData;
 use App\Form\SearchType;
 
 
-#[Route('/mammal', name: 'mammal.', methods: ['GET', 'POST'])]
+#[Route('/reptile', name: 'reptile.', methods: ['GET', 'POST'])]
 
-final class MammalController extends AbstractController
+final class ReptileController extends AbstractController
 {
     #[Route('/index', name: 'index')]
-    public function index(Request $request, MammalRepository $mammalRepository): Response
+    public function index(Request $request, ReptileRepository $reptileRepository): Response
     {
         $searchData = new SearchData();
         $form = $this->createForm(type: SearchType::class, data: $searchData);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $searchData->page = $request->query->getInt(key: 'page', default: 1);
-            $mammals = $mammalRepository->findBySearch($searchData, $searchData->page, limit: 2);
-            return $this->render('mammal/index.html.twig', [
+            $reptiles = $reptileRepository->findBySearch($searchData, $searchData->page, limit: 2);
+            return $this->render('reptile/index.html.twig', [
                 'form' => $form,
-                'mammals' => $mammals
+                'reptiles' => $reptiles
             ]);
         }
         $page = $request->query->getInt('page', 1);
-        $mammals = $mammalRepository->paginateMammals($page);
-        return $this->render('mammal/index.html.twig', [
+        $reptiles = $reptileRepository->paginateReptiles($page);
+        return $this->render('reptile/index.html.twig', [
             'form' => $form,
-            'mammals' => $mammals,
+            'reptiles' => $reptiles,
         ]);
     }
 
     #[Route('/show/{id}', name: 'show', requirements: ['id' => Requirement::DIGITS])]
-    public function show(int $id, MammalRepository $mammalRepository): Response
+    public function show(int $id, ReptileRepository $reptileRepository): Response
     {
-        $mammal = $mammalRepository->find($id);
+        $reptile = $reptileRepository->find($id);
 
-        if (!$mammal) {
-            throw $this->createNotFoundException('Mammal not found');
+        if (!$reptile) {
+            throw $this->createNotFoundException('Reptile not found');
         }
 
-        return $this->render('mammal/show.html.twig', [
-            'mammal' => $mammal
+        return $this->render('reptile/show.html.twig', [
+            'reptile' => $reptile
         ]);
     }
 

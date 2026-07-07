@@ -8,9 +8,6 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Requirement\Requirement;
 use App\Repository\FishRepository;
-use Doctrine\ORM\EntityManagerInterface;
-use App\Entity\Fish;
-use App\Form\FishType;
 use App\Model\SearchData;
 use App\Form\SearchType;
 

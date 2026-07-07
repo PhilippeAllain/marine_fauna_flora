@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Mammal;
+use App\Entity\Reptile;        ;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -14,7 +14,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\Event\PostSubmitEvent;
 
-class MammalType extends AbstractType
+
+class ReptileType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -51,7 +52,7 @@ class MammalType extends AbstractType
     {
         //dd($event->getData());
         $data = $event->getData();
-        if (!($data instanceof Mammal)) {
+        if (!($data instanceof Reptile)) {
             return;
         }
 
@@ -64,7 +65,7 @@ class MammalType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Mammal::class,
+            'data_class' => Reptile::class,
         ]);
     }
 }
