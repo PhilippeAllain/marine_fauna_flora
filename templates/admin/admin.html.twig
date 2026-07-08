@@ -44,6 +44,9 @@
 								<li>
 									<a class="dropdown-item {{ app.current_route() starts with 'admin.reptile.' ? 'active' : '' }}" href="{{ path('admin.reptile.index') }}">Reptiles</a>
 								</li>
+								<li>
+									<a class="dropdown-item {{ app.current_route() starts with 'admin.bird.' ? 'active' : '' }}" href="{{ path('admin.bird.index') }}">Oiseaux</a>
+								</li>
 							</ul>
 						</li>
 					</ul>
