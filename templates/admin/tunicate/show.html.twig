@@ -1,0 +1,35 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title 'Tunicier : ' ~ tunicate.name %}
+
+{% block body %}
+	<div class="container w-50 mt-4 p-3 border rounded shadow">
+
+		{% if tunicate is not null %}
+			<h1 class="mb-4">Détails du tunicier : "{{ tunicate.name }}"</h1>
+			<div class="card">
+				<div class="card-body">
+					{% if tunicate.thumbnail %}
+						<div class="card-card-img-top mb-3">
+							<img src="{{ vich_uploader_asset(tunicate, 'thumbnailFile') }}" alt="{{ tunicate.name }}" class="img-fluid mb-4" style="max-width: 200px;">
+						</div>
+					{% endif %}
+					<div class="card-body">
+						<h2 class="card-header">{{ tunicate.name }}</h2>
+
+						<h3 class="card-title m-3">{{ tunicate.content | nl2br }}</h3>
+						<p class="card-text m-3 text-center">
+							<a href="{{ tunicate.url }}" target="_blank" class="btn btn-info mb-3">Voir la source</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		{% else %}
+			<h1 class="mb-4">Tunicier non trouvé</h1>
+			<p>Le tunicier que vous recherchez n'existe pas.</p>
+		{% endif %}
+
+		<div class="container my-4 justify-content-center d-flex gap-3">
+			<a href="{{ path('admin.tunicate.index') }}" class="btn btn-primary">Retour</a>
+		</div>
+	{% endblock %}

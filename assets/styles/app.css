@@ -1,3 +1,14 @@
 body {
-    background-color: skyblue;
+    background:url(../images/pexels-88530801-9175307.jpg) no-repeat center center fixed;
+    background-size: cover;
+    opacity: 0.9;
+
+}
+
+h1 {
+    color: #0a0a0a;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 20px;
+    font-size: 3rem;
 }
