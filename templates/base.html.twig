@@ -21,7 +21,7 @@
 
 			<nav class="navbar navbar-expand-lg bg-body-tertiary">
 				<div class="container-fluid">
-					<a class="navbar-brand" href="{{ path('glossary.index') }}">Faune & Flora marine</a>
+					<a class="navbar-brand" href="{{ path('glossary.index') }}">Faune & Flore marine</a>
 					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="navbar-toggler-icon"></span>
 					</button>
@@ -60,6 +60,9 @@
 							<ul class="dropdown-menu">
 								<li class="nav-item">
 									<a class="nav-link {{ app.current_route() starts with 'tunicate.' ? 'active' : '' }}" href="{{ path('tunicate.index') }}">Les Tuniciers</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link {{ app.current_route() starts with 'echinoderm.' ? 'active' : '' }}" href="{{ path('echinoderm.index') }}">Les Echinodermes</a>
 								</li>
 							</ul>
 						</li>
