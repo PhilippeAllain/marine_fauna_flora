@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Crustacé : ' ~ crustacean.name %}
+
+{% block body %}
+	<div class="container w-50 mt-4 p-3 border rounded shadow">
+
+		{% if crustacean is not null %}
+			<h1 class="mb-4 text-center">Détails du terme : "{{ crustacean.name }}"</h1>
+			<div class="card">
+				<img src="{{ vich_uploader_asset(crustacean, 'thumbnailFile') }}" alt="{{ crustacean.name }}" class="card-img-top img-fluid mb-4 p-4" style="max-width: 200px;">
+				<div class="card-body">
+					<h2 class="card-header">{{ crustacean.name }}</h2>
+					<h3 class="card-title m-3">{{ crustacean.content | nl2br }}</h3>
+					<p class="card-text m-3 text-center">
+						<a href="{{ crustacean.url }}" target="_blank" class="btn btn-info mb-3">Voir la source</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	{% endif %}
+
+	<div class="container my-4 justify-content-center d-flex gap-3">
+		<a href="{{ path('crustacean.index') }}" class="btn btn-primary">Retour</a>
+	</div>
+	
+{% endblock %}

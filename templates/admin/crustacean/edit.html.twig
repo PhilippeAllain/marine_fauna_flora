@@ -1,0 +1,31 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title 'Crustacé : ' ~ crustacean.name %}
+
+{% block body %}
+	<div class="container border rounded shadow">
+
+		{% if crustacean is not null %}
+			<h1 class="mb-4">Modifier le crustacé : "{{ crustacean.name }}"</h1>
+			<div class="card">
+				<img src="{{ vich_uploader_asset(crustacean, 'thumbnailFile') }}" alt="{{ crustacean.name }}" class="img-fluid mb-4" style="max-width: 200px;">
+				<div class="card-body">
+					{{ form_start(form) }}
+					{{ form_row(form.name) }}
+					{{ form_row(form.dci) }}
+					{{ form_row(form.content) }}
+					{{ form_row(form.thumbnailFile) }}
+					{{ form_row(form.url) }}
+					{{ form_end(form) }}
+				</div>
+			</div>
+		</div>
+	{% else %}
+		<h1 class="mb-4">Crustacé non trouvé</h1>
+		<p>Le crustacé que vous essayez de modifier n'existe pas.</p>
+	{% endif %}
+</div>
+
+<div class="container my-4 justify-content-center d-flex gap-3">
+	<a href="{{ path('admin.crustacean.index') }}" class="btn btn-primary">Retour</a>
+</div>{% endblock %}

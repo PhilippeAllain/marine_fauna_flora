@@ -30,3 +30,11 @@ vich_uploader:
             uri_prefix: /images/echinoderms
             upload_destination: '%kernel.project_dir%/public/images/echinoderms'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        bryozoans:
+            uri_prefix: /images/bryozoans
+            upload_destination: '%kernel.project_dir%/public/images/bryozoans'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        crustaceans:
+            uri_prefix: /images/crustaceans
+            upload_destination: '%kernel.project_dir%/public/images/crustaceans'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
