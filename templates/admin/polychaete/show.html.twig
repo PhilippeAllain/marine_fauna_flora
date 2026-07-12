@@ -1,0 +1,35 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title 'Polychète : ' ~ polychaete.name %}
+
+{% block body %}
+	<div class="container w-50 mt-4 p-3 border rounded shadow">
+
+		{% if polychaete is not null %}
+			<h1 class="mb-4">Détails du polychète : "{{ polychaete.name }}"</h1>
+			<div class="card">
+				<div class="card-body">
+					{% if polychaete.thumbnail %}
+						<div class="card-card-img-top mb-3">
+							<img src="{{ vich_uploader_asset(polychaete, 'thumbnailFile') }}" alt="{{ polychaete.name }}" class="img-fluid mb-4" style="max-width: 200px;">
+						</div>
+					{% endif %}
+					<div class="card-body">
+						<h2 class="card-header">{{ polychaete.name }}</h2>
+
+						<h3 class="card-title m-3">{{ polychaete.content | nl2br }}</h3>
+						<p class="card-text m-3 text-center">
+							<a href="{{ polychaete.url }}" target="_blank" class="btn btn-info mb-3">Voir la source</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		{% else %}
+			<h1 class="mb-4">Polychète non trouvé</h1>
+			<p>Le polychète que vous recherchez n'existe pas.</p>
+		{% endif %}
+
+		<div class="container my-4 justify-content-center d-flex gap-3">
+			<a href="{{ path('admin.polychaete.index') }}" class="btn btn-primary">Retour</a>
+		</div>
+	{% endblock %}
