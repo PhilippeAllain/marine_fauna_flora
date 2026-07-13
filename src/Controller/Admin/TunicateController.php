@@ -28,7 +28,7 @@ final class TunicateController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $searchData->page = $request->query->getInt(key: 'page', default: 1);
             $tunicates = $tunicateRepository->findBySearch($searchData, $searchData->page, limit: 2);
-            return $this->render('/admin/tunicate   /index.html.twig', [
+            return $this->render('/admin/tunicate/index.html.twig', [
                 'form' => $form,
                 'tunicates' => $tunicates
             ]);

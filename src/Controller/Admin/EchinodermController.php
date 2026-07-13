@@ -28,7 +28,7 @@ final class EchinodermController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $searchData->page = $request->query->getInt(key: 'page', default: 1);
             $echinoderms = $echinodermRepository->findBySearch($searchData, $searchData->page, limit: 2);
-            return $this->render('/admin/echinoderm   /index.html.twig', [
+            return $this->render('/admin/echinoderm/index.html.twig', [
                 'form' => $form,
                 'echinoderms' => $echinoderms
             ]);

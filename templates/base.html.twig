@@ -76,6 +76,12 @@
 								<li class="nav-item">
 									<a class="nav-link {{ app.current_route() starts with 'mollusc.' ? 'active' : '' }}" href="{{ path('mollusc.index') }}">Les Mollusques</a>
 								</li>
+								<li class="nav-item">
+									<a class="nav-link {{ app.current_route() starts with 'cnidarian.' ? 'active' : '' }}" href="{{ path('cnidarian.index') }}">Les Cnidaires</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link {{ app.current_route() starts with 'sponge.' ? 'active' : '' }}" href="{{ path('sponge.index') }}">Les Eponges</a>
+								</li>
 							</ul>
 						</li>
 							<li class="nav-item">

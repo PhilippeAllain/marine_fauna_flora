@@ -28,7 +28,7 @@ final class ReptileController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $searchData->page = $request->query->getInt(key: 'page', default: 1);
             $reptiles = $reptileRepository->findBySearch($searchData, $searchData->page, limit: 2);
-            return $this->render('admin/reptile /index.html.twig', [
+            return $this->render('admin/reptile/index.html.twig', [
                 'form' => $form,
                 'reptiles' => $reptiles
             ]);

@@ -28,7 +28,7 @@ final class CrustaceanController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $searchData->page = $request->query->getInt(key: 'page', default: 1);
             $crustaceans = $crustaceanRepository->findBySearch($searchData, $searchData->page, limit: 2);
-            return $this->render('/admin/crustacean   /index.html.twig', [
+            return $this->render('/admin/crustacean/index.html.twig', [
                 'form' => $form,
                 'crustaceans' => $crustaceans
             ]);

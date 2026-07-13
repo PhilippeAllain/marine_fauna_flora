@@ -28,7 +28,7 @@ final class BryozoanController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $searchData->page = $request->query->getInt(key: 'page', default: 1);
             $bryozoans = $bryozoanRepository->findBySearch($searchData, $searchData->page, limit: 2);
-            return $this->render('/admin/bryozoan   /index.html.twig', [
+            return $this->render('/admin/bryozoan/index.html.twig', [
                 'form' => $form,
                 'bryozoans' => $bryozoans
             ]);
