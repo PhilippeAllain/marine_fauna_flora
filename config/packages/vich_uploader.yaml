@@ -54,3 +54,7 @@ vich_uploader:
             uri_prefix: /images/sponges
             upload_destination: '%kernel.project_dir%/public/images/sponges'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        plants:
+            uri_prefix: /images/plants
+            upload_destination: '%kernel.project_dir%/public/images/plants'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
