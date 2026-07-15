@@ -1,0 +1,27 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title 'Ajouter une algue verte' %}
+
+
+{% block body %}
+
+	<div class="container mt-4 p-3 border rounded shadow">
+		<h1 class="text-center m-4">Ajouter une algue verte</h1>
+		<div class="card">
+			<div class="card-body">
+				{{ form_start(form) }}
+				{{ form_row(form.name) }}
+				{{ form_row(form.dci) }}
+				{{ form_row(form.content) }}
+				{{ form_row(form.thumbnailFile) }}
+				{{ form_row(form.url) }}
+					
+				{{ form_end(form) }}
+			</div>
+		</div>
+	</div>
+	<div class="container my-4 justify-content-center d-flex gap-3">
+		<a href="{{ path('admin.green.index') }}" class="btn btn-primary">Retour</a>
+	</div>
+	
+{% endblock %}

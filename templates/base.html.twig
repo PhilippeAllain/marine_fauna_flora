@@ -92,6 +92,12 @@
 								<li class="nav-item">
 									<a class="nav-link {{ app.current_route() starts with 'plant.' ? 'active' : '' }}" href="{{ path('plant.index') }}">Plantes à fleur</a>
 								</li>
+								<li class="nav-item">
+									<a class="nav-link {{ app.current_route() starts with 'green.' ? 'active' : '' }}" href="{{ path('green.index') }}">Algues vertes</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link {{ app.current_route() starts with 'brown.' ? 'active' : '' }}" href="{{ path('brown.index') }}">Algues brunes</a>
+								</li>
 							</ul>
 						</li>
 							<li class="nav-item">

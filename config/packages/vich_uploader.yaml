@@ -58,3 +58,11 @@ vich_uploader:
             uri_prefix: /images/plants
             upload_destination: '%kernel.project_dir%/public/images/plants'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        greens:
+            uri_prefix: /images/greens
+            upload_destination: '%kernel.project_dir%/public/images/greens'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        browns:
+            uri_prefix: /images/browns
+            upload_destination: '%kernel.project_dir%/public/images/browns'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
