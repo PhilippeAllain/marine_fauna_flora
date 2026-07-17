@@ -1,0 +1,35 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title 'Algue rouge : ' ~ red.name %}
+
+{% block body %}
+	<div class="container w-50 mt-4 p-3 border rounded shadow">
+
+		{% if red is not null %}
+			<h1 class="mb-4">Détails de l'algue rouge : "{{ red.name }}"</h1>
+			<div class="card">
+				<div class="card-body">
+					{% if red.thumbnail %}
+						<div class="card-card-img-top mb-3">
+							<img src="{{ vich_uploader_asset(red, 'thumbnailFile') }}" alt="{{ red.name }}" class="img-fluid mb-4" style="max-width: 200px;">
+						</div>
+					{% endif %}
+					<div class="card-body">
+						<h2 class="card-header">{{ red.name }}</h2>
+
+						<h3 class="card-title m-3">{{ red.content | nl2br }}</h3>
+						<p class="card-text m-3 text-center">
+							<a href="{{ red.url }}" target="_blank" class="btn btn-info mb-3">Voir la source</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		{% else %}
+			<h1 class="mb-4">Algue rouge non trouvée</h1>
+			<p>L'algue rouge que vous recherchez n'existe pas.</p>
+		{% endif %}
+
+		<div class="container my-4 justify-content-center d-flex gap-3">
+			<a href="{{ path('admin.red.index') }}" class="btn btn-primary">Retour</a>
+		</div>
+	{% endblock %}

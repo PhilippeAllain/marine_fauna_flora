@@ -1,0 +1,56 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title 'Les algues rouges' %}
+
+{% block body %}
+	<div class="container w-75 mt-4 p-3 border rounded shadow">
+		<div class="container p-4">
+			<h1 class="text-center">Les algues rouges</h1>
+		</div>
+
+		<div class="mb-3 p-4 border rounded">
+			{% include 'components/_search_data.html.twig' with {'form': form} only %}
+		</div>
+
+		<div class="container p-4">
+			<p>
+				<a class="btn btn-primary btn-sm" href="{{ path('admin.red.create') }}">Ajouter une algue rouge.</a>
+			</p>
+		</div>
+
+		<div class="container p-4">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>{{ knp_pagination_sortable(reds, 'Nom', 'r.name') }}</th>
+						<th>{{ knp_pagination_sortable(reds, 'DCI', 'r.dci') }}</th>
+						<th style="width: 217px">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for red in reds %}
+						<tr>
+							<td>
+								<a href="{{ path('admin.red.show', {id: red.id}) }}">{{ red.name }}</a>
+							</td>
+							<td>
+								<a href="{{ path('admin.red.show', {id: red.id}) }}">{{ red.dci }}</a>
+							</td>
+							<td>
+								<div class="d-flex gap-1">
+									<a class="btn btn-primary btn-sm" href="{{ path('admin.red.edit', {id : red.id}) }}">Editer</a>
+									<form action="{{ path('admin.red.delete', {id: red.id}) }}" method="POST">
+										<input type="hidden" name="_method" value="DELETE">
+										<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ red.id) }}">
+										<button class="btn btn-danger btn-sm" type="submit">Supprimer</button>
+									</form>
+								</div>
+							</td>
+						</tr>
+					</td>
+				</tbody>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table></div><div class="container p-4">
+<div class="d-flex justify-content-center">{{ knp_pagination_render(reds) }}</div></div></div>{% endblock %}
