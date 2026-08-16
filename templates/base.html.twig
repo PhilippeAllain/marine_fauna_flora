@@ -111,13 +111,19 @@
 			</nav>
 			<h1 class="text-center my-4 p-4">Faune & Flore marine</h1>
 		</div>
+		
+		<div class="container my-4">
+			{% include 'partials/flash.html.twig' %}
+			{% block body %}{% endblock %}
+		</div>
 
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 		<footer class="bg-primary text-center text-lg-start text-white mt-4 fixed-bottom">
 			<div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
 				© Copyright: Frager Philippe
 			</div>
 		</footer>
-		{% block body %}{% endblock %}
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+		
+		
 	</body>
-</html></body></html>
+</html>
