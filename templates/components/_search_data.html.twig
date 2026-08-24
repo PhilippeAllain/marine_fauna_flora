@@ -1,15 +1,13 @@
 {{ form_start(form) }}
-<div class="container mt-4 p-3 border rounded shadow">
-<div class="row">
-    <div class="col-md-6">
-    {{ form_widget(form.q) }}
-    </div>
-    <div class="col-md-6">
-    <button type="submit" class="btn btn-primary" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/></svg>  Rechercher</button>
-    </div>
-    </div>
+<div class="flex justify-center">
+	<div class="mb-3 xl:w-96">
+		<div class="input-group relative flex flex-wrap items-stretch w-full mb-4">
+			{{ form_widget(form.q) }}
+			<button type="submit" class="btn btn-primary inline-block">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewbox="0 0 16 16">
+					<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/></svg>
+			</button>
+		</div>
+	</div>
 </div>
 {{ form_end(form) }}
-
-

@@ -10,7 +10,7 @@ use App\Model\SearchData;
 
 class SearchType extends AbstractType
 {
-public function buildForm(FormBuilderInterface $builder, array $options)
+public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('q', TextType::class, [
@@ -21,7 +21,7 @@ public function buildForm(FormBuilderInterface $builder, array $options)
             ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => SearchData::class,
