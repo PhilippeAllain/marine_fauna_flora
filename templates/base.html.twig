@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr-FR">
+	<meta name="author" content="Philippe Frager"/>
+	<meta property="og:description" content="Informations sur la faune et flore marine."/>
+	<meta property="og:title" content="Marine Fauna Flora"/>
 	<head>
 		<meta charset="UTF-8">
 		<title>
@@ -39,7 +42,7 @@
 								</a>
 								<ul class="dropdown-menu">
 									<li class="nav-item">
-										<a class="dropdown-item {{ app.current_route() starts with 'mammal.' ? 'active' : '' }}" href="{{ path('mammal.index') }}">Mammifères</a> 
+										<a class="dropdown-item {{ app.current_route() starts with 'mammal.' ? 'active' : '' }}" href="{{ path('mammal.index') }}">Mammifères</a>
 									</li>
 									<li>
 										<a class="dropdown-item {{ app.current_route() starts with 'fish.' ? 'active' : '' }}" href="{{ path('fish.index') }}">Les Poissons</a>
@@ -47,61 +50,62 @@
 									<li>
 										<a class="dropdown-item {{ app.current_route() starts with 'reptile.' ? 'active' : '' }}" href="{{ path('reptile.index') }}">Les Reptiles</a>
 									</li>
-									
+
 									<li>
 										<a class="dropdown-item {{ app.current_route() starts with 'bird.' ? 'active' : '' }}" href="{{ path('bird.index') }}">Les Oiseaux</a>
 									</li>
 								</ul>
 							</li>
 							<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								Les invertébrés
-							</a>
-							<ul class="dropdown-menu">
-								<li class="nav-item">
-									<a class="nav-link {{ app.current_route() starts with 'tunicate.' ? 'active' : '' }}" href="{{ path('tunicate.index') }}">Les Tuniciers</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link {{ app.current_route() starts with 'echinoderm.' ? 'active' : '' }}" href="{{ path('echinoderm.index') }}">Les Echinodermes</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link {{ app.current_route() starts with 'bryozoan.' ? 'active' : '' }}" href="{{ path('bryozoan.index') }}">Les Bryozoaires</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link {{ app.current_route() starts with 'crustacean.' ? 'active' : '' }}" href="{{ path('crustacean.index') }}">Les Crustacés</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link {{ app.current_route() starts with 'polychaete.' ? 'active' : '' }}" href="{{ path('polychaete.index') }}">Les Polychètes</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link {{ app.current_route() starts with 'mollusc.' ? 'active' : '' }}" href="{{ path('mollusc.index') }}">Les Mollusques</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link {{ app.current_route() starts with 'cnidarian.' ? 'active' : '' }}" href="{{ path('cnidarian.index') }}">Les Cnidaires</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link {{ app.current_route() starts with 'sponge.' ? 'active' : '' }}" href="{{ path('sponge.index') }}">Les Eponges</a>
-								</li>
-							</ul>
-						</li>
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								La flore
-							</a>
-							<ul class="dropdown-menu">
-								<li class="nav-item">
-									<a class="nav-link {{ app.current_route() starts with 'plant.' ? 'active' : '' }}" href="{{ path('plant.index') }}">Plantes à fleur</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link {{ app.current_route() starts with 'green.' ? 'active' : '' }}" href="{{ path('green.index') }}">Algues vertes</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link {{ app.current_route() starts with 'brown.' ? 'active' : '' }}" href="{{ path('brown.index') }}">Algues brunes</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link {{ app.current_route() starts with 'red.' ? 'active' : '' }}" href="{{ path('red.index') }}">Algues rouges</a>
-							</ul>
-						</li>
+								<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+									Les invertébrés
+								</a>
+								<ul class="dropdown-menu">
+									<li class="nav-item">
+										<a class="nav-link {{ app.current_route() starts with 'tunicate.' ? 'active' : '' }}" href="{{ path('tunicate.index') }}">Les Tuniciers</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link {{ app.current_route() starts with 'echinoderm.' ? 'active' : '' }}" href="{{ path('echinoderm.index') }}">Les Echinodermes</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link {{ app.current_route() starts with 'bryozoan.' ? 'active' : '' }}" href="{{ path('bryozoan.index') }}">Les Bryozoaires</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link {{ app.current_route() starts with 'crustacean.' ? 'active' : '' }}" href="{{ path('crustacean.index') }}">Les Crustacés</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link {{ app.current_route() starts with 'polychaete.' ? 'active' : '' }}" href="{{ path('polychaete.index') }}">Les Polychètes</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link {{ app.current_route() starts with 'mollusc.' ? 'active' : '' }}" href="{{ path('mollusc.index') }}">Les Mollusques</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link {{ app.current_route() starts with 'cnidarian.' ? 'active' : '' }}" href="{{ path('cnidarian.index') }}">Les Cnidaires</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link {{ app.current_route() starts with 'sponge.' ? 'active' : '' }}" href="{{ path('sponge.index') }}">Les Eponges</a>
+									</li>
+								</ul>
+							</li>
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+									La flore
+								</a>
+								<ul class="dropdown-menu">
+									<li class="nav-item">
+										<a class="nav-link {{ app.current_route() starts with 'plant.' ? 'active' : '' }}" href="{{ path('plant.index') }}">Plantes à fleur</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link {{ app.current_route() starts with 'green.' ? 'active' : '' }}" href="{{ path('green.index') }}">Algues vertes</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link {{ app.current_route() starts with 'brown.' ? 'active' : '' }}" href="{{ path('brown.index') }}">Algues brunes</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link {{ app.current_route() starts with 'red.' ? 'active' : '' }}" href="{{ path('red.index') }}">Algues rouges</a>
+									</li>
+								</ul>
+							</li>
 							<li class="nav-item">
 								<a class="nav-link {{ app.current_route() starts with 'contact' ? 'active' : '' }}" href="{{ path('contact') }}">Contact</a>
 							</li>
@@ -111,7 +115,7 @@
 			</nav>
 			<h1 class="text-center my-4 p-4">Faune & Flore marine</h1>
 		</div>
-		
+
 		<div class="container my-4">
 			{% include 'partials/flash.html.twig' %}
 			{% block body %}{% endblock %}
@@ -123,7 +127,7 @@
 				© Copyright: Frager Philippe
 			</div>
 		</footer>
-		
-		
+
+
 	</body>
 </html>
