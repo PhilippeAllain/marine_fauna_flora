@@ -25,7 +25,7 @@ final class ContactController extends AbstractController
             try{
             $mail = (new TemplatedEmail())
                 
-                ->to($data->service)
+               
                 ->from($data->email)
                 ->subject('Demande de contact')
                 ->htmlTemplate('emails/contact.html.twig')

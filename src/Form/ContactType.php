@@ -40,14 +40,7 @@ class ContactType extends AbstractType
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Envoyer',
-            ])
-            ->add('service', ChoiceType::class, [
-                'choices'  => [
-                    'Compta' => 'compta@demo.fr',
-                    'Support' => 'support@demo.fr',
-                    'Marketing' => 'marketing@demo.fr',
-                ],
-            ]);;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
