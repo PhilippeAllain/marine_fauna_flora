@@ -19,6 +19,7 @@ final class BirdController extends AbstractController
     #[Route('/index', name: 'index')]
     public function index(Request $request, BirdRepository $birdRepository): Response
     {
+        //$regress = $request->headers->get('referer');
         $searchData = new SearchData();
         $form = $this->createForm(type: SearchType::class, data: $searchData);
         $form->handleRequest($request);

@@ -18,6 +18,7 @@ final class GlossaryController extends AbstractController
     #[Route('/index', name: 'index')]
     public function index(Request $request, GlossaryRepository $glossaryRepository): Response
     {
+        //$regress = $request->headers->get('referer');
         $searchData = new SearchData();
         $form = $this->createForm(type: SearchType::class, data: $searchData);
         $form->handleRequest($request);
@@ -27,7 +28,7 @@ final class GlossaryController extends AbstractController
             return $this->render('glossary/index.html.twig', [
                 'form' => $form,
                 'glossaries' => $glossaries,
-
+                
             ]);
         }
         $page = $request->query->getInt('page', 1);
@@ -35,6 +36,7 @@ final class GlossaryController extends AbstractController
         return $this->render('glossary/index.html.twig', [
             'form' => $form,
             'glossaries' => $glossaries,
+            
         ]);
     }
 
