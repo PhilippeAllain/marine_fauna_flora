@@ -10,7 +10,7 @@
 body {
     font-family: 'Roboto', sans-serif;
     line-height: 1.6;
-    background:url(../images/pexels-88530801-9175307.jpg) no-repeat center center fixed;
+    background: url(../images/pexels-88530801-9175307.jpg) no-repeat center center fixed;
     background-size: cover;
     opacity: 0.95;
     overflow: visible;
@@ -38,7 +38,7 @@ img {
     align-items: center;
     padding: 20px 10%;
     background-color: #ffffff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .navbar .logo {
@@ -63,7 +63,7 @@ img {
     transition: color 0.3s ease;
 }
 
-.nav-links a:hover, 
+.nav-links a:hover,
 .nav-links a.active {
     color: #007bff;
 }
@@ -72,7 +72,8 @@ img {
    3. Section Hero (Contenu Principal)
 ----------------------------------------- */
 .hero-section {
-    flex: 1; /* Permet d'occuper tout l'espace disponible entre le header et le footer */
+    flex: 1;
+    /* Permet d'occuper tout l'espace disponible entre le header et le footer */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -80,7 +81,8 @@ img {
     padding: 50px 20px;
     background: linear-gradient(135deg, #eeeff1, #97999c);
     position: absolute;
-    top: 10rem; /* Ajustez cette valeur en fonction de la hauteur de votre navbar */
+    top: 10rem;
+    /* Ajustez cette valeur en fonction de la hauteur de votre navbar */
     left: 20rem;
     right: 20rem;
     bottom: 10rem;
@@ -131,6 +133,7 @@ img {
    4. Adaptations Mobile (Écrans < 768px)
 ----------------------------------------- */
 @media (max-width: 767px) {
+
     /* Navbar : empile le logo et les liens verticalement */
     .navbar {
         flex-direction: column;
@@ -139,7 +142,8 @@ img {
     }
 
     .nav-links li {
-        margin: 0 10px; /* Aligne les liens horizontalement mais plus serrés */
+        margin: 0 10px;
+        /* Aligne les liens horizontalement mais plus serrés */
     }
 
     /* Images : s'assure qu'elles ne dépassent pas de l'écran */
@@ -163,4 +167,35 @@ img {
     .hero-content h3 {
         font-size: 16px;
     }
+}
+
+.emerald-card {
+    background-color: #e8f5e9 !important;
+    transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.emerald-text {
+    color: #0f5132 !important;
+    transition: color 0.2s ease;
+}
+
+@media (hover: hover) {
+    .emerald-card:hover {
+        background-color: #198754 !important;
+        transform: translateY(-3px);
+        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+    }
+
+    .emerald-card:hover .emerald-text {
+        color: #ffffff !important;
+    }
+}
+
+.emerald-card:active {
+    background-color: #0f5132 !important;
+    transform: scale(0.98);
+}
+
+.emerald-card:active .emerald-text {
+    color: #ffffff !important;
 }
