@@ -3,21 +3,93 @@
 {% block title 'Glossaire' %}
 
 {% block body %}
-	<div class="container-fluid container-md mt-4 p-3 border rounded shadow">
-		<h1 class="text-center mb-4">Glossaire</h1>
+	<!-- Style personnalisé pour le Bleu Émeraude étendu aux composants -->
+	<style>
+		:root {
+			--emerald-blue: #005f73; /* Bleu émeraude profond principal */
+			--emerald-blue-hover: #0a9396; /* Teinte plus lumineuse pour le survol */
+			--emerald-blue-light: #f4f9f9; /* Fond très clair et frais pour le contraste */
+		}
+		.border-emerald-blue {
+			border-color: var(--emerald-blue) !important;
+		}
+		.text-emerald-blue {
+			color: var(--emerald-blue) !important;
+		}
 		
-		<div class="mb-3 p-3 p-md-4 border rounded">
-			{% include 'components/_search_data.html.twig' with {'form': form} only %}
+		/* Cartes du glossaire */
+		.card-emerald-blue {
+			border: 2px solid var(--emerald-blue);
+			transition: all 0.3s ease;
+			background-color: #ffffff;
+		}
+		.card-emerald-blue:hover {
+			background-color: var(--emerald-blue) !important;
+			border-color: var(--emerald-blue) !important;
+			transform: translateY(-3px);
+		}
+		.card-emerald-blue:hover .link-emerald-blue {
+			color: #ffffff !important;
+		}
+		.link-emerald-blue {
+			color: var(--emerald-blue);
+			font-weight: 600;
+			transition: color 0.3s ease;
+		}
+
+		/* Surcharge des boutons Bootstrap de votre sous-composant de recherche */
+		.container-md btn, 
+		.container-md .btn-primary,
+		.container-md input[type="submit"] {
+			background-color: var(--emerald-blue) !important;
+			border-color: var(--emerald-blue) !important;
+			color: #ffffff !important;
+			transition: all 0.2s ease;
+		}
+		.container-md btn:hover, 
+		.container-md .btn-primary:hover,
+		.container-md input[type="submit"]:hover {
+			background-color: var(--emerald-blue-hover) !important;
+			border-color: var(--emerald-blue-hover) !important;
+		}
+
+		/* Surcharge de la pagination KnpPaginator (Bootstrap) */
+		.pagination .page-item.active .page-link {
+			background-color: var(--emerald-blue) !important;
+			border-color: var(--emerald-blue) !important;
+			color: #ffffff !important;
+		}
+		.pagination .page-link {
+			color: var(--emerald-blue);
+			border-color: #dee2e6;
+		}
+		.pagination .page-link:hover {
+			color: var(--emerald-blue-hover);
+			background-color: var(--emerald-blue-light);
+			border-color: #dee2e6;
+		}
+	</style>
+
+	<!-- Fond de la page légèrement teinté en bleu émeraude très clair -->
+	<div class="container-fluid container-md mt-4 p-4 border rounded shadow text-center" style="background-color: var(--emerald-blue-light);">
+		<!-- Titre avec la couleur bleu émeraude -->
+		<h1 class="mb-4 text-emerald-blue font-weight-bold">Glossaire</h1>
+		
+		<!-- Formulaire de recherche centré -->
+		<div class="mb-4 p-3 p-md-4 border border-emerald-blue rounded d-flex justify-content-center align-items-center bg-white shadow-sm">
+			<div class="w-100" style="max-width: 600px;">
+				{% include 'components/_search_data.html.twig' with {'form': form} only %}
+			</div>
 		</div>
 		
-		{# Grille responsive : 1 colonne sur mobile, 2 sur tablette, 3 sur ordinateur #}
-		<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-4">
+		<!-- Grille responsive centrée -->
+		<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-4 justify-content-center">
 			{% for glossary in glossaries %}
 				<div class="col">
-					<div class="card h-100 shadow-sm border-primary">
+					<div class="card h-100 shadow-sm card-emerald-blue">
 						<div class="card-body d-flex align-items-center justify-content-center text-center">
 							<h5 class="card-title m-0">
-								<a href="{{ path('glossary.show', {id: glossary.id}) }}" class="text-decoration-none stretched-link">
+								<a href="{{ path('glossary.show', {id: glossary.id}) }}" class="text-decoration-none stretched-link link-emerald-blue">
 									{{ glossary.word }}
 								</a>
 							</h5>
@@ -31,6 +103,7 @@
 			{% endfor %}
 		</div>
 
+		<!-- Pagination centrée et stylisée -->
 		<div class="d-flex justify-content-center mt-3">
 			{{ knp_pagination_render(glossaries) }}
 		</div>
