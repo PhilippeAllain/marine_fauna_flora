@@ -5,130 +5,88 @@
 	<meta property="og:title" content="Marine Fauna Flora"/>
 	<head>
 		<meta charset="UTF-8">
-		<title>
-			{% block title %}Marine Fauna & Flora
-			{% endblock %}
-		</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>{% block title %}Marine Fauna & Flora{% endblock %}</title>
+
 		{% block stylesheets %}
 			<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 		{% endblock %}
-		<link rel="preload" href="assets/styles/app.css" as="style">
+		<!-- <link rel="stylesheet" href="assets/styles/app.css" as="style"> -->
 
 		{% block javascripts %}
-			{% block importmap %}
-				{{ importmap('app') }}
-			{% endblock %}
+			{{ importmap('app') }}
 		{% endblock %}
 	</head>
+
 	<body>
-		<div class="container-fluid">
-
-			<nav class="navbar navbar-expand-sm bg-body-tertiary">
-				<div class="container-fluid">
-					<a class="navbar-brand" href="{{ path('main.index') }}">Faune & Flore marine</a>
-					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-					<div class="collapse navbar-collapse" id="navbarSupportedContent">
-						<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-							<li class="nav-item">
-								<a class="nav-link {{ app.current_route() starts with 'glossary' ? 'active' : '' }}" href="{{ path('glossary.index') }}">Glossaire</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link {{ app.current_route() starts with 'sea' ? 'active' : '' }}" href="{{ path('sea.index') }}">Océans-Mers</a>
-							</li>
-							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-									Les vertébrés marins
-								</a>
-								<ul class="dropdown-menu">
-									<li class="nav-item">
-										<a class="dropdown-item {{ app.current_route() starts with 'mammal.' ? 'active' : '' }}" href="{{ path('mammal.index') }}">Mammifères</a>
-									</li>
-									<li>
-										<a class="dropdown-item {{ app.current_route() starts with 'fish.' ? 'active' : '' }}" href="{{ path('fish.index') }}">Les Poissons</a>
-									</li>
-									<li>
-										<a class="dropdown-item {{ app.current_route() starts with 'reptile.' ? 'active' : '' }}" href="{{ path('reptile.index') }}">Les Reptiles</a>
-									</li>
-
-									<li>
-										<a class="dropdown-item {{ app.current_route() starts with 'bird.' ? 'active' : '' }}" href="{{ path('bird.index') }}">Les Oiseaux</a>
-									</li>
-								</ul>
-							</li>
-							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-									Les invertébrés
-								</a>
-								<ul class="dropdown-menu">
-									<li class="nav-item">
-										<a class="nav-link {{ app.current_route() starts with 'tunicate.' ? 'active' : '' }}" href="{{ path('tunicate.index') }}">Les Tuniciers</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link {{ app.current_route() starts with 'echinoderm.' ? 'active' : '' }}" href="{{ path('echinoderm.index') }}">Les Echinodermes</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link {{ app.current_route() starts with 'bryozoan.' ? 'active' : '' }}" href="{{ path('bryozoan.index') }}">Les Bryozoaires</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link {{ app.current_route() starts with 'crustacean.' ? 'active' : '' }}" href="{{ path('crustacean.index') }}">Les Crustacés</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link {{ app.current_route() starts with 'polychaete.' ? 'active' : '' }}" href="{{ path('polychaete.index') }}">Les Polychètes</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link {{ app.current_route() starts with 'mollusc.' ? 'active' : '' }}" href="{{ path('mollusc.index') }}">Les Mollusques</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link {{ app.current_route() starts with 'cnidarian.' ? 'active' : '' }}" href="{{ path('cnidarian.index') }}">Les Cnidaires</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link {{ app.current_route() starts with 'sponge.' ? 'active' : '' }}" href="{{ path('sponge.index') }}">Les Eponges</a>
-									</li>
-								</ul>
-							</li>
-							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-									La flore
-								</a>
-								<ul class="dropdown-menu">
-									<li class="nav-item">
-										<a class="nav-link {{ app.current_route() starts with 'plant.' ? 'active' : '' }}" href="{{ path('plant.index') }}">Plantes à fleur</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link {{ app.current_route() starts with 'green.' ? 'active' : '' }}" href="{{ path('green.index') }}">Algues vertes</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link {{ app.current_route() starts with 'brown.' ? 'active' : '' }}" href="{{ path('brown.index') }}">Algues brunes</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link {{ app.current_route() starts with 'red.' ? 'active' : '' }}" href="{{ path('red.index') }}">Algues rouges</a>
-									</li>
-								</ul>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link {{ app.current_route() starts with 'contact' ? 'active' : '' }}" href="{{ path('contact') }}">Contact</a>
-							</li>
+		
+		<nav class="navbar navbar-expand-lg bg-body-tertiary">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="{{ path('main.index') }}">Faune & Flore marine</a>
+				<!-- Correction ici : ajout du # -->
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item">
+							<!-- Correction ici : guillemets et aria-current nettoyés -->
+							<a class="nav-link {{ app.current_route() starts with 'glossary' ? 'active' : '' }}" aria-current="page" href="{{ path('glossary.index') }}">Glossaire</a>
 						</li>
-					</div>
+						<li class="nav-item">
+							<a class="nav-link {{ app.current_route() starts with 'sea' ? 'active' : '' }}" href="{{ path('sea.index') }}">Océans-Mers</a>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Les vertébrés</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item {{ app.current_route() starts with 'mammal.' ? 'active' : '' }}" href="{{ path('mammal.index') }}">Mammifères</a></li>
+								<li><a class="dropdown-item {{ app.current_route() starts with 'bird.' ? 'active' : '' }}" href="{{ path('bird.index') }}">Les Oiseaux</a></li>
+								<li><a class="dropdown-item {{ app.current_route() starts with 'fish.' ? 'active' : '' }}" href="{{ path('fish.index') }}">Les Poissons</a></li>
+								<!-- Correction ici : <l> remplacé par <li> -->
+								<li><a class="dropdown-item {{ app.current_route() starts with 'reptile.' ? 'active' : '' }}" href="{{ path('reptile.index') }}">Les Reptiles</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Les invertébrés</a>
+							<ul class="dropdown-menu">														
+								<li><a class="dropdown-item {{ app.current_route() starts with 'bryozoan.' ? 'active' : '' }}" href="{{ path('bryozoan.index') }}">Les Bryozoaires</a></li>
+								<li><a class="dropdown-item {{ app.current_route() starts with 'cnidarian.' ? 'active' : '' }}" href="{{ path('cnidarian.index') }}">Les Cnidaires</a></li>
+								<li><a class="dropdown-item {{ app.current_route() starts with 'crustacean.' ? 'active' : '' }}" href="{{ path('crustacean.index') }}">Les Crustacés</a></li>
+								<li><a class="dropdown-item {{ app.current_route() starts with 'echinoderm.' ? 'active' : '' }}" href="{{ path('echinoderm.index') }}">Les Echinodermes</a></li>
+								<li><a class="dropdown-item {{ app.current_route() starts with 'sponge.' ? 'active' : '' }}" href="{{ path('sponge.index') }}">Les Eponges</a></li>							
+								<li><a class="dropdown-item {{ app.current_route() starts with 'mollusc.' ? 'active' : '' }}" href="{{ path('mollusc.index') }}">Les Mollusques</a></li>
+								<li><a class="dropdown-item {{ app.current_route() starts with 'polychaete.' ? 'active' : '' }}" href="{{ path('polychaete.index') }}">Les Polychètes</a></li>														
+								<li><a class="dropdown-item {{ app.current_route() starts with 'tunicate.' ? 'active' : '' }}" href="{{ path('tunicate.index') }}">Les Tuniciers</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">La flore</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item {{ app.current_route() starts with 'plant.' ? 'active' : '' }}" href="{{ path('plant.index') }}">Plantes à fleur</a></li>						
+								<li><a class="dropdown-item {{ app.current_route() starts with 'brown.' ? 'active' : '' }}" href="{{ path('brown.index') }}">Algues brunes</a></li>
+								<li><a class="dropdown-item {{ app.current_route() starts with 'red.' ? 'active' : '' }}" href="{{ path('red.index') }}">Algues rouges</a></li>
+								<!-- Correction ici : suppression du double </li> en fin de liste -->
+								<li><a class="dropdown-item {{ app.current_route() starts with 'green.' ? 'active' : '' }}" href="{{ path('green.index') }}">Algues vertes</a></li>
+							</ul>
+						</li>
+					</ul>
 				</div>
-			</nav>
-			<h1 class="text-center my-4 p-4">Faune & Flore marine</h1>
-		</div>
+			</div>
+		</nav>
+
 
 		<div class="container my-4">
 			{% include 'partials/flash.html.twig' %}
 			{% block body %}{% endblock %}
 		</div>
 
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+		
 		<footer class="bg-primary text-center text-lg-start text-white mt-4 fixed-bottom">
 			<div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
 				© Copyright: Frager Philippe
 			</div>
 		</footer>
-
-
+		
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 	</body>
 </html>
