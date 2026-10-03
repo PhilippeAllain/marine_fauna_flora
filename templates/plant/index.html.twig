@@ -23,9 +23,9 @@
 								<a href="{{ path('plant.show', {id: plant.id}) }}">{{ plant.name }}</a>
 							</td>
 						</tr>
-					</td>
+						</td>
+					</tbody>
+					</tr>
+				{% endfor %}
 				</tbody>
-			</tr>
-		{% endfor %}
-	</tbody>
-</table></div><div class="d-flex justify-content-center">{{ knp_pagination_render(plants) }}</div></div>{% endblock %}
+			</table></div><div class="d-flex justify-content-center">{{ knp_pagination_render(plants) }}</div></div>{% endblock %}

@@ -3,27 +3,16 @@
 {% block title 'Glossaire : ' ~ glossary.word %}
 
 {% block body %}
-	<div class="container w-75 mt-4 p-3 border rounded shadow">
-
-		{% if glossary is not null %}
-			<h1 class="mb-4 text-center">Détails du terme : "{{ glossary.word }}"</h1>
-			<div class="card">
-				<img src="{{ vich_uploader_asset(glossary, 'thumbnailFile') }}" alt="{{ glossary.word }}" class="card-img-top img-fluid mb-4 p-4" style="max-width: 200px;">
-				<div class="card-body">
-					<h2 class="card-header">{{ glossary.word }}</h2>
-					<h3 class="card-title m-3">{{ glossary.content | nl2br }}</h3>
-					<h4 class="card-text m-3">
-						<strong>Exemples :</strong>
-						{{ glossary.example }}</h4>
-					<p class="card-text m-3 text-center">
-						<a href="{{ glossary.url }}" target="_blank" class="btn btn-info mb-3">Voir la source</a>
-					</p>
-				</div>
-			</div>
+	<div class="card text-center mb-3 bg-primary-subtle">
+		<img src="{{ vich_uploader_asset(glossary, 'thumbnailFile') }}" alt="{{ glossary.word }}" class="card-img-top img-fluid mb-4 p-4" style="max-width: 200px;">
+		<div class="card-body">
+			<h1 class="card-title text-center m-5">Détails du terme : "{{ glossary.word }}"</h1>
+			<h2 class="card-text text-start"><strong>Eplication: </strong>{{ glossary.content|nl2br }}</h2>				
+			<h3 class="card-text text-start"><strong>Exemple: </strong>{{ glossary.example }}</h3>
 		</div>
-	{% endif %}
-
-	<div class="container my-4 justify-content-center d-flex gap-3">
-		<a href="{{ path('glossary.index') }}" class="btn btn-primary">Retour</a>
+		<div class="card-footer text-body-secondary">		
+			<div class="raw m-3"><a href="{{ glossary.url }}" target="_blank" class="btn btn-primary card-link">Voir la source</a></div>
+			<div class="raw m-3"><a href="{{ path('glossary.index') }}" class="btn btn-primary card-link">Retour</a></div>			
+		</div>
 	</div>
 {% endblock %}
