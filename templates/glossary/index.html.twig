@@ -35,11 +35,40 @@
 			{% endfor %}
 		</div>
 
-
-		</div>
-				{# Pagination centrée #}
+		{# Pagination centrée #}
 		<div class="d-flex justify-content-center mt-3">
 			{{ knp_pagination_render(glossaries) }}
+		</div>
 	</div>
 
+	{# Styles personnalisés pour le thème Vert Émeraude #}
+	<style>
+		.emerald-card {
+			background-color: #e8f5e9 !important;
+			transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+		}
+		.emerald-text {
+			color: #0f5132 !important;
+			transition: color 0.2s ease;
+		}
+		
+		@media (hover: hover) {
+			.emerald-card:hover {
+				background-color: #198754 !important;
+				transform: translateY(-3px);
+				box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+			}
+			.emerald-card:hover .emerald-text {
+				color: #ffffff !important;
+			}
+		}
+		
+		.emerald-card:active {
+			background-color: #0f5132 !important;
+			transform: scale(0.98);
+		}
+		.emerald-card:active .emerald-text {
+			color: #ffffff !important;
+		}
+	</style>
 {% endblock %}
