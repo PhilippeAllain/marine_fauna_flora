@@ -3,104 +3,15 @@
 {% block title 'Glossaire' %}
 
 {% block body %}
-	<!-- Style personnalisé pour le Bleu Émeraude étendu aux composants -->
-	<style>
-		:root {
-			--emerald-blue: #005f73; /* Bleu émeraude profond principal */
-			--emerald-blue-hover: #0a9396; /* Teinte plus lumineuse pour le survol */
-			--emerald-blue-light: #f4f9f9; /* Fond très clair et frais pour le contraste */
-		}
-		.border-emerald-blue {
-			border-color: var(--emerald-blue) !important;
-		}
-		.text-emerald-blue {
-			color: var(--emerald-blue) !important;
-		}
-		
-		/* Bouton Retour Personnel */
-		.btn-outline-emerald {
-			color: var(--emerald-blue) !important;
-			border: 1px solid var(--emerald-blue) !important;
-			background-color: transparent !important;
-			transition: all 0.2s ease;
-			font-weight: 500;
-		}
-		.btn-outline-emerald:hover {
-			color: #ffffff !important;
-			background-color: var(--emerald-blue) !important;
-			border-color: var(--emerald-blue) !important;
-		}
-		
-		/* Cartes du glossaire */
-		.card-emerald-blue {
-			border: 2px solid var(--emerald-blue);
-			transition: all 0.3s ease;
-			background-color: #ffffff;
-		}
-		.card-emerald-blue:hover {
-			background-color: var(--emerald-blue) !important;
-			border-color: var(--emerald-blue) !important;
-			transform: translateY(-3px);
-		}
-		.card-emerald-blue:hover .link-emerald-blue {
-			color: #ffffff !important;
-		}
-		.link-emerald-blue {
-			color: var(--emerald-blue);
-			font-weight: 600;
-			transition: color 0.3s ease;
-		}
-
-		/* Surcharge des boutons Bootstrap de votre sous-composant de recherche */
-		.container-md .btn, 
-		.container-md .btn-primary,
-		.container-md button,
-		.container-md input[type="submit"] {
-			background-color: var(--emerald-blue) !important;
-			border-color: var(--emerald-blue) !important;
-			color: #ffffff !important;
-			transition: all 0.2s ease;
-		}
-		.container-md .btn:hover, 
-		.container-md .btn-primary:hover,
-		.container-md button:hover,
-		.container-md input[type="submit"]:hover {
-			background-color: var(--emerald-blue-hover) !important;
-			border-color: var(--emerald-blue-hover) !important;
-			color: #ffffff !important;
-		}
-
-		/* Surcharge de la pagination KnpPaginator (Bootstrap) */
-		.pagination .page-item.active .page-link {
-			background-color: var(--emerald-blue) !important;
-			border-color: var(--emerald-blue) !important;
-			color: #ffffff !important;
-		}
-		.pagination .page-link {
-			color: var(--emerald-blue) !important;
-			border-color: #dee2e6;
-		}
-		.pagination .page-link:hover {
-			color: #ffffff !important;
-			background-color: var(--emerald-blue-hover) !important;
-			border-color: var(--emerald-blue-hover) !important;
-		}
-	</style>
+	
 
 	<!-- Conteneur principal flex-column -->
-	<div class="container-fluid container-md mt-4 p-4 border rounded shadow text-center d-flex flex-column justify-content-between" style="background-color: var(--emerald-blue-light); min-height: 80vh;">
+	<div class="container-fluid container-md mt-4 p-4 border rounded shadow text-center d-flex flex-column justify-content-between" style="background-color: var(--emerald-blue-light); min-height: auto;">
 		
 		<!-- Conteneur du haut -->
 		<div>
 			<!-- Zone d'en-tête avec bouton retour aligné à gauche et titre centré -->
 			<div class="d-flex align-items-center mb-4 position-relative justify-content-center">
-				<!-- Redirection vers l'index principal de votre application -->
-				<a href="{{ path('glossary.index') }}" class="btn btn-outline-emerald position-absolute start-0 d-flex align-items-center gap-2">
-					<svg xmlns="http://w3.org" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-						<path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
-					</svg>
-					Retour
-				</a>
 				<h1 class="m-0 text-emerald-blue font-weight-bold">Glossaire</h1>
 			</div>
 			
@@ -133,9 +44,10 @@
 			</div>
 		</div>
 
-		<!-- Pagination forcée tout en bas -->
+
+	</div>
+			<!-- Pagination forcée tout en bas -->
 		<div class="d-flex justify-content-center mt-auto pt-3">
 			{{ knp_pagination_render(glossaries) }}
 		</div>
-	</div>
 {% endblock %}
