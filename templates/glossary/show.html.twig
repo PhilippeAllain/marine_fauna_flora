@@ -3,21 +3,18 @@
 {% block title 'Glossaire : ' ~ glossary.word %}
 
 {% block body %}
-	{# Définition des couleurs émeraude (fond clair et détails foncés) #}
-	<div class="card text-center mb-3 mx-auto" 
-		 style="max-width: 600px; background-color: #e6f4ea; border-color: #a3cfbb;">
-		
+	<div class="card text-center mb-3 bg-primary-subtle mx-auto" style="max-width: 600px;">
+		{# Image centrée et redimensionnée proprement pour mobile #}
 		<div class="d-flex justify-content-center pt-4">
 			<img src="{{ vich_uploader_asset(glossary, 'thumbnailFile') }}" alt="{{ glossary.word }}" class="img-fluid px-3" style="max-height: 150px; object-fit: contain;">
 		</div>
 		
 		<div class="card-body px-3 px-sm-4">
-			{# Titre en vert émeraude foncé #}
-			<h1 class="card-title text-center fs-3 my-4" style="color: #0f5132;">
-				Détails du terme : "{{ glossary.word }}"
-			</h1>
+			{# Marges réduites (m-5 était trop grand pour un écran de téléphone) #}
+			<h1 class="card-title text-center fs-3 my-4">Détails du terme : "{{ glossary.word }}"</h1>
 			
-			<div class="card-text text-start mb-3 fs-5" style="color: #143323;">
+			{# fs-5 et fs-6 pour des tailles de texte lisibles mais adaptées #}
+			<div class="card-text text-start mb-3 fs-5">
 				<strong>Explication : </strong>{{ glossary.content|nl2br }}
 			</div>				
 			<div class="card-text text-start mb-3 fs-6 text-muted">
@@ -25,20 +22,14 @@
 			</div>
 		</div>
 		
-		{# Pied de page avec un fond légèrement plus prononcé et boutons personnalisés #}
-		<div class="card-footer py-3" style="background-color: #d1ebd9; border-top-color: #a3cfbb;">		
+		{# Boutons alignés côte à côte sur grand écran, mais empilés sur mobile #}
+		<div class="card-footer text-body-secondary py-3">		
 			<div class="row g-2 justify-content-center">
 				<div class="col-12 col-sm-auto">
-					{# Bouton principal Émeraude #}
-					<a href="{{ glossary.url }}" target="_blank" class="btn text-white w-100" style="background-color: #047857; border-color: #047857;">
-						Voir la source
-					</a>
+					<a href="{{ glossary.url }}" target="_blank" class="btn btn-primary w-100">Voir la source</a>
 				</div>
 				<div class="col-12 col-sm-auto">
-					{# Bouton secondaire avec contour Émeraude #}
-					<a href="{{ path('glossary.index') }}" class="btn w-100" style="color: #047857; border-color: #047857; background-color: transparent;">
-						Retour
-					</a>
+					<a href="{{ path('glossary.index') }}" class="btn btn-outline-primary w-100">Retour</a>
 				</div>			
 			</div>
 		</div>
