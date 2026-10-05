@@ -38,7 +38,7 @@ class GlossaryType extends AbstractType
 
             ])
             ->add('url', UrlType::class, [
-                'label' => 'URL',
+                'label' => 'URL source',
                 'empty_data' => '',
                 'required' => false,
             ])
