@@ -79,7 +79,9 @@ img {
     align-items: center;
     text-align: center;
     padding: 50px 20px;
-    background: linear-gradient(135deg, #eeeff1, #97999c);
+    background-color: #74c9cc;
+    color: #1A3038;
+    padding: 40px 20px;
     position: absolute;
     top: 10rem;
     /* Ajustez cette valeur en fonction de la hauteur de votre navbar */
@@ -112,8 +114,10 @@ img {
     max-width: 250px;
     margin: 8px 0;
     padding: 12px 24px;
-    background-color: var(--primary-color);
-    color: var(--text-light);
+    background-color: #004B49 !important;
+    border-color: #6dd1ce !important;
+    color: #ffffff !important;
+    transition: background-color 0.3s ease;
     text-decoration: none;
     font-weight: 600;
     font-size: 1rem;
@@ -124,7 +128,8 @@ img {
 }
 
 .card-link.btn.btn-primary:hover {
-    background-color: var(--primary-color-dark);
+     background-color: #006E6B !important; /* Éclaircissement au survol */
+    border-color: #006E6B !important;
     box-shadow: 0 6px 12px rgba(0, 119, 182, 0.3);
     transform: translateY(-2px);
 }

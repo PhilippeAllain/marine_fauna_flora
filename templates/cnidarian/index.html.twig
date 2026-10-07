@@ -3,29 +3,52 @@
 {% block title 'Les cnidaires' %}
 
 {% block body %}
-	<div class="container w-50 mt-4 p-3 border rounded shadow">
-		<h1 class="text-center">Les cnidaires</h1>
-		<div class="mb-3 p-4 border rounded">
-			{% include 'components/_search_data.html.twig' with {'form': form} only %}
-		</div>
-		<div class="mb-3 p-4 border rounded">
 
-			<table class="table table-primary table-striped-columns">
-				<thead>
-					<tr>
-						<th>{{ knp_pagination_sortable(cnidarians, 'Nom', 'c.name') }}</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for cnidarian in cnidarians %}
-						<tr>
-							<td>
-								<a href="{{ path('cnidarian.show', {id: cnidarian.id}) }}">{{ cnidarian.name }}</a>
-							</td>
-						</tr>
-					</td>
-				</tbody>
-			</tr>
-		{% endfor %}
-	</tbody>
-</table></div><div class="d-flex justify-content-center">{{ knp_pagination_render(cnidarians) }}</div></div>{% endblock %}
+	<!-- Conteneur principal flex-column -->
+	<div class="container-fluid container-md mt-4 p-4 border rounded shadow text-center d-flex flex-column justify-content-between" style="background-color: var(--emerald-blue-light); min-height: auto;">
+		
+		<!-- Conteneur du haut -->
+		<div>
+			<!-- Zone d'en-tête avec bouton retour aligné à gauche et titre centré -->
+			<div class="d-flex align-items-center mb-4 position-relative justify-content-center">
+				<h1 class="m-0 text-emerald-blue font-weight-bold">Les cnidaires</h1>
+			</div>
+			
+			<!-- Formulaire de recherche centré -->
+			<div class="mb-4 p-3 p-md-4 border border-emerald-blue rounded d-flex justify-content-center align-items-center bg-white shadow-sm">
+				<div class="w-100" style="max-width: 600px;">
+					{% include 'components/_search_data.html.twig' with {'form': form} only %}
+				</div>
+			</div>
+
+			<!-- Grille responsive centrée -->
+			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-4 justify-content-center">
+				{% for cnidarian in cnidarians %}
+					<div class="col">
+						<div class="card h-100 shadow-sm card-emerald-blue">
+							<div class="card-body d-flex align-items-center justify-content-center text-center">
+								<h5 class="card-title m-0">
+									<a href="{{ path('cnidarian.show', {id: cnidarian.id}) }}" class="text-decoration-none stretched-link link-emerald-blue">
+										{{ cnidarian.name }}
+									</a>
+								</h5>
+							</div>
+						</div>
+					</div>
+				{% else %}
+					<div class="col-12 text-center text-muted py-4">
+						Aucun mot trouvé dans les cnidaires.
+					</div>
+				{% endfor %}
+			</div>
+
+		</div>
+
+	</div>
+	<!-- Pagination forcée tout en bas -->
+	<div class="d-flex justify-content-center mt-auto pt-3">
+		{{ knp_pagination_render(cnidarians) }}
+	</div>
+{% endblock %}
+
+
