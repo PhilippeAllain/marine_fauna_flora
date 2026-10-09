@@ -1,27 +1,36 @@
 {% extends 'base.html.twig' %}
 
-{% block title 'Glossaire : ' ~ tunicate.name %}
+{% block title 'Les tuniciers : ' ~ tunicate.name %}
 
 {% block body %}
-	<div class="container w-50 mt-4 p-3 border rounded shadow">
-
-		{% if tunicate is not null %}
-			<h1 class="mb-4 text-center">Détails du terme : "{{ tunicate.name }}"</h1>
-			<div class="card">
-				<img src="{{ vich_uploader_asset(tunicate, 'thumbnailFile') }}" alt="{{ tunicate.name }}" class="card-img-top img-fluid mb-4 p-4" style="max-width: 200px;">
-				<div class="card-body">
-					<h2 class="card-header">{{ tunicate.name }}</h2>
-					<h3 class="card-title m-3">{{ tunicate.content | nl2br }}</h3>
-					<p class="card-text m-3 text-center">
-						<a href="{{ tunicate.url }}" target="_blank" class="btn btn-info mb-3">Voir la source</a>
-					</p>
+	<div class="container-fluid container-md mt-4 p-4 border rounded shadow text-center d-flex flex-column justify-content-between" style="background-color: var(--emerald-blue-light); min-height: auto;">
+		{# Image centrée et redimensionnée proprement pour mobile #}
+		<div class="d-flex align-items-center mb-4 position-relative justify-content-center">
+			<img src="{{ vich_uploader_asset(tunicate, 'thumbnailFile') }}" alt="{{ tunicate.name }}" class="img-fluid px-3" style="max-height: 150px; object-fit: contain;">
+		</div>
+		
+		{# CORRECTION ICI : Remplacement de la grille par un conteneur vertical flex/standard #}
+		<div class="d-flex flex-column align-items-center mb-4 w-100">
+			<h1 class="card-title text-center fs-3 my-4">Détails du terme : "{{ tunicate.name }}"</h1>
+			
+			{# Utilisation d'une largeur max ou 100% pour que le texte aligné à gauche reste centré dans la page #}
+			<div class="card-text text-start mb-3 fs-5 w-100" style="max-width: 800px;">
+				<strong>Explication : </strong>{{ tunicate.content|nl2br }}
+			</div>				
+		</div>
+		
+		{# Boutons alignés côte à côte sur grand écran, mais empilés sur mobile #}
+		<div class="card-footer text-body-secondary py-3">		
+			<div class="row g-2 justify-content-center">
+				<div class="col-12 col-sm-auto">
+					<a href="{{ tunicate.url }}" target="_blank" class="btn btn-primary w-100">Voir la source</a>
 				</div>
+				<div class="col-12 col-sm-auto">
+					<a href="{{ path('tunicate.index') }}" class="btn btn-outline-primary w-100">Retour</a>
+				</div>			
 			</div>
 		</div>
-	{% endif %}
-
-	<div class="container my-4 justify-content-center d-flex gap-3">
-		<a href="{{ path('tunicate.index') }}" class="btn btn-primary">Retour</a>
 	</div>
-	
 {% endblock %}
+
+
