@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="fr-FR">
-	<meta name="author" content="Philippe Frager"/>
-	<meta property="og:description" content="Informations sur la faune et flore marine."/>
-	<meta property="og:title" content="Marine Fauna Flora"/>
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="author" content="Philippe Frager"/>
+		<meta property="og:description" content="Informations sur la faune et flore marine."/>
+		<meta property="og:title" content="Marine Fauna Flora"/>
 		<title>{% block title %}Marine Fauna & Flora{% endblock %}</title>
 
 		{% block stylesheets %}
@@ -61,13 +61,16 @@
 								<li><a class="dropdown-item {{ app.current_route() starts with 'plant.' ? 'active' : '' }}" href="{{ path('plant.index') }}">Plantes à fleur</a></li>						
 								<li><a class="dropdown-item {{ app.current_route() starts with 'brown.' ? 'active' : '' }}" href="{{ path('brown.index') }}">Algues brunes</a></li>
 								<li><a class="dropdown-item {{ app.current_route() starts with 'red.' ? 'active' : '' }}" href="{{ path('red.index') }}">Algues rouges</a></li>
-								<!-- Correction ici : suppression du double </li> en fin de liste -->
 								<li><a class="dropdown-item {{ app.current_route() starts with 'green.' ? 'active' : '' }}" href="{{ path('green.index') }}">Algues vertes</a></li>
 							</ul>
+						</li>
+							<li class="nav-item">
+							<a class="nav-link {{ app.current_route() starts with 'contact' ? 'active' : '' }}" aria-current="page" href="{{ path('contact') }}">Contact</a>
 						</li>
 					</ul>
 				</div>
 			</div>
+			
 		</nav>
 
 

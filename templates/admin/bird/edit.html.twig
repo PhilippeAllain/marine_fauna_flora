@@ -1,31 +1,54 @@
 {% extends 'admin/admin.html.twig' %}
 
-{% block title 'Oiseau : ' ~ bird.name %}
+{% block title 'Les oiseaux : ' ~ (bird ? bird.name : 'Introuvable') %}
 
 {% block body %}
-	<div class="container border rounded shadow">
+	<div class="container border rounded shadow p-3 mt-2 bg-white" style="max-height: 92vh; overflow: hidden;">
 
 		{% if bird is not null %}
-			<h1 class="mb-4">Modifier l'oiseau : "{{ bird.name }}"</h1>
-			<div class="card">
-				<img src="{{ vich_uploader_asset(bird, 'thumbnailFile') }}" alt="{{ bird.name }}" class="img-fluid mb-4" style="max-width: 200px;">
-				<div class="card-body">
+			<h2 class="h5 mb-2 fw-bold text-dark">Modifier l'oiseau : "{{ bird.name }}"</h2>
+			
+			<div class="card border-0">
+				<div class="card-body p-1">
 					{{ form_start(form) }}
-					{{ form_row(form.name) }}
-					{{ form_row(form.dci) }}
-					{{ form_row(form.content) }}
-					{{ form_row(form.thumbnailFile) }}
-					{{ form_row(form.url) }}
+					<div class="row g-2">
+						{# Colonne Gauche : Informations principales #}
+						<div class="col-md-7 d-flex flex-column gap-1">
+							{{ form_row(form.name, {'attr': {'class': 'form-control-sm'}}) }}
+							{{ form_row(form.dci, {'attr': {'class': 'form-control-sm'}}) }}
+							{{ form_row(form.content, {'attr': {'class': 'form-control-sm', 'rows': 4, 'style': 'resize: none;'}}) }}
+						</div>
+
+						{# Colonne Droite : Liens, Fichier et Image actuelle #}
+						<div class="col-md-5 d-flex flex-column justify-content-between">
+							<div class="d-flex flex-column gap-1">
+								{{ form_row(form.url, {'attr': {'class': 'form-control-sm'}}) }}
+								{{ form_row(form.thumbnailFile, {'attr': {'class': 'form-control-sm'}}) }}
+							</div>
+
+							{# Miniature compacte si elle existe #}
+							{% if bird.thumbnail %}
+								<div class="d-flex align-items-center gap-2 p-1 border rounded bg-light my-1" style="max-height: 55px;">
+									<img src="{{ vich_uploader_asset(bird, 'thumbnailFile') }}" alt="{{ bird.name }}" class="img-fluid rounded border" style="max-height: 45px; width: auto; object-fit: contain;">
+									<span class="text-muted" style="font-size: 0.75rem;">Image actuelle</span>
+								</div>
+							{% endif %}
+						</div>
+					</div>
 					{{ form_end(form) }}
 				</div>
 			</div>
-		</div>
-	{% else %}
-		<h1 class="mb-4">Oiseau non trouvé</h1>
-		<p>L'oiseau que vous essayez de modifier n'existe pas.</p>
-	{% endif %}
-</div>
+		{% else %}
+			<h1 class="h5 text-danger mb-2">Oiseau non trouvé</h1>
+			<p class="alert alert-danger p-2 small">L'oiseau que vous essayez de modifier n'existe pas.</p>
+			
+			<div class="mt-2">
+				{% set back_url = app.request.headers.get('referer') %}
+				<a href="{{ back_url ? back_url : path('admin.bird.index') }}" class="btn btn-sm btn-primary">
+					Retour
+				</a>
+			</div>
+		{% endif %}
 
-<div class="container my-4 justify-content-center d-flex gap-3">
-	<a href="{{ path('admin.bird.index') }}" class="btn btn-primary">Retour</a>
-</div>{% endblock %}
+	</div> 
+{% endblock %}

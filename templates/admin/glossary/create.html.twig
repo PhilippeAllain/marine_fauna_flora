@@ -2,24 +2,19 @@
 
 {% block title 'Ajouter un terme du glossaire' %}
 
-
 {% block body %}
-
 	<div class="container mt-4 p-3 border rounded shadow">
 		<h1 class="text-center m-4">Ajouter un terme au glossaire</h1>
-		<div class="card">
+		
+		<div class="card shadow-sm">
 			<div class="card-body">
 				{{ form_start(form) }}
-				{{ form_row(form.word) }}
-				{{ form_row(form.content) }}
-				{{ form_row(form.example) }}
-					
+					{{ form_row(form.word) }}
+					{{ form_row(form.content) }}
+					{{ form_row(form.example) }}
+					{{ form_row(form.thumbnailFile) }}
 				{{ form_end(form) }}
 			</div>
 		</div>
 	</div>
-	<div class="container my-4 justify-content-center d-flex gap-3">
-		<a href="{{ path('admin.glossary.index') }}" class="btn btn-primary">Retour</a>
-	</div>
-	
 {% endblock %}

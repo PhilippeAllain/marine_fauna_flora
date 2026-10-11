@@ -1,34 +1,51 @@
 {% extends 'admin/admin.html.twig' %}
 
-{% block title 'Glossaire : ' ~ glossary.word %}
+{% block title 'Glossaire : ' ~ (glossary ? glossary.word : 'Terme introuvable') %}
 
 {% block body %}
 	<div class="container mt-4">
-
 		{% if glossary is not null %}
 			<h1 class="mb-4">Détails du terme : "{{ glossary.word }}"</h1>
+			
 			<div class="card">
 				<div class="card-body">
-					<h5 class="card-title">{{ glossary.word }}</h5>
+					<h5 class="card-title mb-4">{{ glossary.word }}</h5>
+					
+					{# L'image est affichée uniquement si elle existe #}
 					{% if glossary.thumbnail %}
-						<div class="card-card-img-top mb-3">
-							<img src="{{ vich_uploader_asset(glossary, 'thumbnailFile') }}" alt="{{ glossary.word }}" class="img-fluid mb-4" style="max-width: 200px;">
+						<div class="mb-3">
+							<img src="{{ vich_uploader_asset(glossary, 'thumbnailFile') }}" alt="{{ glossary.word }}" class="img-fluid" style="max-width: 200px;">
 						</div>
-						<p class="card-text">{{ glossary.content | nl2br }}</p>
+					{% endif %}
+
+					{# Le contenu et les exemples s'affichent même s'il n'y a pas d'image #}
+					<p class="card-text">{{ glossary.content|nl2br }}</p>
+					
+					{% if glossary.example %}
 						<p class="card-text">
-							<strong>Exemples:</strong>
-							{{ glossary.example }}</p>
-						<a href="{{ glossary.url }}" target="_blank" class="btn btn-info mb-3">Voir la source</a>
+							<strong>Exemples :</strong><br>
+							{{ glossary.example|nl2br }}
+						</p>
+					{% endif %}
+					
+					{% if glossary.url %}
+						<a href="{{ glossary.url }}" target="_blank" class="btn btn-info mt-2 border border-5 border-primary">Voir la source</a>
 					{% endif %}
 				</div>
 			</div>
-		</div>
-	{% else %}
-		<h1 class="mb-4">Terme du glossaire non trouvé</h1>
-		<p>Le terme que vous recherchez n'existe pas.</p>
-	{% endif %}
+		{% else %}
+			<h1 class="mb-4">Terme du glossaire non trouvé</h1>
+			<p class="alert alert-danger">Le terme que vous recherchez n'existe pas ou a été supprimé.</p>
+		{% endif %}
+	</div> {# <- Le container principal se ferme correctement ici pour tout le monde #}
 
 	<div class="container my-4 justify-content-center d-flex gap-3">
-		<a href="{{ path('admin.glossary.index') }}" class="btn btn-primary">Retour</a>
+		{# On vérifie si la page précédente existe dans l'historique de navigation #}
+		{% set back_url = app.request.headers.get('referer') %}
+
+		<a href="{{ back_url ? back_url : path('admin.glossary.index') }}" class="btn btn-info border border-5 border-primary">
+			Retour
+		</a>
+
 	</div>
 {% endblock %}

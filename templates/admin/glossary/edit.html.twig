@@ -1,29 +1,53 @@
 {% extends 'admin/admin.html.twig' %}
 
-{% block title 'Glossaire : ' ~ glossary.word %}
+{% block title 'Glossaire : ' ~ (glossary ? glossary.word : 'Introuvable') %}
 
 {% block body %}
-	<div class="container border rounded shadow">
+	<div class="container border rounded shadow p-3 mt-2 bg-white" style="max-height: 92vh; overflow: hidden;">
 
 		{% if glossary is not null %}
-			<h1 class="mb-4">Modifier le terme : "{{ glossary.word }}"</h1>
-			<div class="card">
-				<img src="{{ vich_uploader_asset(glossary, 'thumbnailFile') }}" alt="{{ glossary.word }}" class="img-fluid mb-4" style="max-width: 200px;">
-				<div class="card-body">
+			<h2 class="h5 mb-2 fw-bold text-dark">Modifier : "{{ glossary.word }}"</h2>
+			
+			<div class="card border-0">
+				<div class="card-body p-1">
 					{{ form_start(form) }}
-					{{ form_row(form.word) }}
-					{{ form_row(form.content) }}
-					{{ form_row(form.example) }}
+					<div class="row g-2">
+						{# Colonne Gauche : Contenu principal #}
+						<div class="col-md-7 d-flex flex-column gap-1">
+							{{ form_row(form.word, {'attr': {'class': 'form-control-sm'}}) }}
+							{{ form_row(form.content, {'attr': {'class': 'form-control-sm', 'rows': 4, 'style': 'resize: none;'}}) }}
+						</div>
+
+						{# Colonne Droite : Image actuelle, Nouveau Fichier & Exemple #}
+						<div class="col-md-5 d-flex flex-column justify-content-between">
+							<div class="d-flex flex-column gap-1">
+								{{ form_row(form.example, {'attr': {'class': 'form-control-sm', 'rows': 2, 'style': 'resize: none;'}}) }}
+								{{ form_row(form.thumbnailFile, {'attr': {'class': 'form-control-sm'}}) }}
+							</div>
+
+							{# Miniature compacte côte à côte #}
+							{% if glossary.thumbnail %}
+								<div class="d-flex align-items-center gap-2 p-1 border rounded bg-light my-1" style="max-height: 55px;">
+									<img src="{{ vich_uploader_asset(glossary, 'thumbnailFile') }}" alt="{{ glossary.word }}" class="img-fluid rounded border" style="max-height: 45px; width: auto; object-fit: contain;">
+									<span class="text-muted" style="font-size: 0.75rem;">Image actuelle</span>
+								</div>
+							{% endif %}
+						</div>
+					</div>
 					{{ form_end(form) }}
 				</div>
 			</div>
-		</div>
-	{% else %}
-		<h1 class="mb-4">Terme du glossaire non trouvé</h1>
-		<p>Le terme que vous essayez de modifier n'existe pas.</p>
-	{% endif %}
-</div>
+		{% else %}
+			<h1 class="h5 text-danger mb-2">Terme non trouvé</h1>
+			<p class="alert alert-danger p-2 small">Le terme que vous essayez de modifier n'existe pas.</p>
+			
+			<div class="mt-2">
+				{% set back_url = app.request.headers.get('referer') %}
+				<a href="{{ back_url ? back_url : path('admin.glossary.index') }}" class="btn btn-sm btn-primary">
+					Retour
+				</a>
+			</div>
+		{% endif %}
 
-<div class="container my-4 justify-content-center d-flex gap-3">
-	<a href="{{ path('admin.glossary.index') }}" class="btn btn-primary">Retour</a>
-</div>{% endblock %}
+	</div> 
+{% endblock %}

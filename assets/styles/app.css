@@ -1,6 +1,12 @@
-/* --------------------------------------
+/* ==========================================================================
    1. Réinitialisation et Variables
------------------------------------------ */
+   ========================================================================== */
+:root {
+    --emerald-blue: #005f73;        /* Bleu émeraude profond principal */
+    --emerald-blue-hover: #0a9396;  /* Teinte plus lumineuse pour le survol */
+    --emerald-blue-light: #f4f9f9;  /* Fond très clair et frais pour le contraste */
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -13,15 +19,15 @@ body {
     background: url(../images/pexels-88530801-9175307.jpg) no-repeat center center fixed;
     background-size: cover;
     opacity: 0.95;
-    overflow: visible;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
 img {
+    max-width: 100%; 
     width: 250px;
-    height: 250px;
+    height: auto;    /* Évite la déformation des images */
     margin: 10px;
     padding: 25px;
     border: 5px solid black;
@@ -29,66 +35,74 @@ img {
     box-shadow: 6px 6px 0px rgba(0, 0, 0);
 }
 
-/* --------------------------------------
-   2. Barre de Navigation (Navbar)
------------------------------------------ */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 10%;
-    background-color: #ffffff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+/* ==========================================================================
+   2. Barre de Navigation (Thème Bleu Émeraude pour Bootstrap)
+   ========================================================================== */
+
+/* Fond de la barre et ombre légère */
+nav.navbar.bg-body-tertiary {
+    background-color: #ffffff !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05) !important;
+    padding: 15px 5% !important;
 }
 
-.navbar .logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: #007bff;
+/* Le titre principal "Faune & Flore marine" */
+nav.navbar .container-fluid a.navbar-brand {
+    font-size: 24px !important;
+    font-weight: bold !important;
+    color: var(--emerald-blue) !important;
+    transition: color 0.2s ease !important;
 }
 
-.nav-links {
-    list-style: none;
-    display: flex;
+nav.navbar .container-fluid a.navbar-brand:hover {
+    color: var(--emerald-blue-hover) !important;
 }
 
-.nav-links li {
-    margin-left: 20px;
+/* Liens de navigation principaux (Glossaire, Océans, etc.) */
+nav.navbar .navbar-nav .nav-item .nav-link {
+    color: #555555 !important;
+    font-weight: 500 !important;
+    transition: color 0.3s ease !important;
+    padding: 0.5rem 1rem !important;
 }
 
-.nav-links a {
-    text-decoration: none;
-    color: #555;
-    font-weight: 500;
-    transition: color 0.3s ease;
+/* États : au survol, lien actif (Twig), ou sous-menu ouvert */
+nav.navbar .navbar-nav .nav-item .nav-link:hover,
+nav.navbar .navbar-nav .nav-item .nav-link.active,
+nav.navbar .navbar-nav .nav-item .dropdown-toggle.show {
+    color: var(--emerald-blue) !important;
 }
 
-.nav-links a:hover,
-.nav-links a.active {
-    color: #007bff;
+/* Style des éléments à l'intérieur des sous-menus déroulants (Dropdown items) */
+nav.navbar .dropdown-menu .dropdown-item {
+    font-weight: 400 !important;
+    color: #333333 !important;
+    transition: background-color 0.2s ease, color 0.2s ease !important;
 }
 
-/* --------------------------------------
+/* État actif ou survol dans les sous-menus déroulants */
+nav.navbar .dropdown-menu .dropdown-item:hover,
+nav.navbar .dropdown-menu .dropdown-item.active {
+    background-color: var(--emerald-blue) !important;
+    color: #ffffff !important;
+}
+
+/* ==========================================================================
    3. Section Hero (Contenu Principal)
------------------------------------------ */
+   ========================================================================== */
 .hero-section {
-    flex: 1;
-    /* Permet d'occuper tout l'espace disponible entre le header et le footer */
+    flex: 1; 
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 50px 20px;
     background-color: #74c9cc;
     color: #1A3038;
-    padding: 40px 20px;
-    position: absolute;
-    top: 10rem;
-    /* Ajustez cette valeur en fonction de la hauteur de votre navbar */
-    left: 20rem;
-    right: 20rem;
-    bottom: 10rem;
+    padding: 40px 20px; 
     border-radius: 20px;
+    margin: 2rem auto;
+    width: calc(100% - 4rem);
+    max-width: 1200px;
 }
 
 .hero-content {
@@ -117,54 +131,47 @@ img {
     background-color: #004B49 !important;
     border-color: #6dd1ce !important;
     color: #ffffff !important;
-    transition: background-color 0.3s ease;
     text-decoration: none;
     font-weight: 600;
     font-size: 1rem;
     border-radius: 30px;
     box-shadow: 0 4px 6px rgba(0, 119, 182, 0.2);
-    transition: all 0.3s ease;
+    transition: all 0.3s ease; 
     text-align: center;
 }
 
 .card-link.btn.btn-primary:hover {
-     background-color: #006E6B !important; /* Éclaircissement au survol */
+    background-color: #006E6B !important; 
     border-color: #006E6B !important;
     box-shadow: 0 6px 12px rgba(0, 119, 182, 0.3);
     transform: translateY(-2px);
 }
 
-/* --------------------------------------
+/* ==========================================================================
    4. Adaptations Mobile (Écrans < 768px)
------------------------------------------ */
+   ========================================================================== */
 @media (max-width: 767px) {
-
-    /* Navbar : empile le logo et les liens verticalement */
-    .navbar {
-        flex-direction: column;
-        padding: 15px 20px;
-        gap: 15px;
+    /* Espacement global des liens sur mobile */
+    nav.navbar .navbar-nav {
+        padding-top: 15px !important;
+        gap: 10px !important;
+    }
+    
+    /* Correction de l'affichage du fond lors de l'ouverture du menu déroulant */
+    nav.navbar .dropdown-menu.show {
+        display: block !important;
+        border: none !important;
+        background-color: var(--emerald-blue-light) !important; 
+        padding-left: 15px !important;
+        box-shadow: none !important;
     }
 
-    .nav-links li {
-        margin: 0 10px;
-        /* Aligne les liens horizontalement mais plus serrés */
-    }
-
-    /* Images : s'assure qu'elles ne dépassent pas de l'écran */
-    img {
-        max-width: 100%;
-        height: auto;
-    }
-
-    /* Hero Section : Supprime le positionnement absolu pour laisser le contenu respirer */
     .hero-section {
-        position: static;
         margin: 20px;
         padding: 40px 15px;
+        width: calc(100% - 40px);
     }
 
-    /* Typographie : Réduit la taille du gros titre pour éviter les coupures */
     .hero-content h1 {
         font-size: 28px;
     }
@@ -174,6 +181,9 @@ img {
     }
 }
 
+/* ==========================================================================
+   5. Composants Émeraude, Glossaire & Bootstrap Utilities
+   ========================================================================== */
 .emerald-card {
     background-color: #e8f5e9 !important;
     transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
@@ -203,16 +213,6 @@ img {
 
 .emerald-card:active .emerald-text {
     color: #ffffff !important;
-}
-
-/* Style personnalisé pour le Bleu Émeraude étendu aux composants */
-:root {
-    --emerald-blue: #005f73;
-    /* Bleu émeraude profond principal */
-    --emerald-blue-hover: #0a9396;
-    /* Teinte plus lumineuse pour le survol */
-    --emerald-blue-light: #f4f9f9;
-    /* Fond très clair et frais pour le contraste */
 }
 
 .border-emerald-blue {

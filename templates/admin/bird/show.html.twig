@@ -1,35 +1,53 @@
 {% extends 'admin/admin.html.twig' %}
 
-{% block title 'Oiseau : ' ~ bird.name %}
+{% block title 'Oiseau : ' ~ (bird ? bird.name : 'Introuvable') %}
 
 {% block body %}
-	<div class="container w-50 mt-4 p-3 border rounded shadow">
+	<div class="container w-50 mt-4 p-3 border rounded shadow bg-white">
 
 		{% if bird is not null %}
-			<h1 class="mb-4">Détails de l'oiseau : "{{ bird.name }}"</h1>
-			<div class="card">
-				<div class="card-body">
+			<h1 class="h3 mb-4 text-center">Détails de l'oiseau : "{{ bird.name }}"</h1>
+			
+			<div class="card shadow-sm">
+				{# Entête de la carte avec le nom de l'oiseau #}
+				<div class="card-header bg-light">
+					<h2 class="h5 mb-0 fw-bold">{{ bird.name }}</h2>
+				</div>
+				
+				<div class="card-body text-center">
+					{# Affichage de la miniature si elle existe #}
 					{% if bird.thumbnail %}
-						<div class="card-card-img-top mb-3">
-							<img src="{{ vich_uploader_asset(bird, 'thumbnailFile') }}" alt="{{ bird.name }}" class="img-fluid mb-4" style="max-width: 200px;">
+						<div class="mb-3">
+							<img src="{{ vich_uploader_asset(bird, 'thumbnailFile') }}" alt="{{ bird.name }}" class="img-fluid rounded border" style="max-width: 200px;">
 						</div>
 					{% endif %}
-					<div class="card-body">
-						<h2 class="card-header">{{ bird.name }}</h2>
 
-						<h3 class="card-title m-3">{{ bird.content | nl2br }}</h3>
-						<p class="card-text m-3 text-center">
-							<a href="{{ bird.url }}" target="_blank" class="btn btn-info mb-3">Voir la source</a>
-						</p>
+					{# Contenu principal #}
+					<div class="text-start border-top pt-3 mt-3">
+						<p class="card-text text-muted" style="white-space: pre-line;">{{ bird.content }}</p>
 					</div>
+
+					{# Lien externe #}
+					{% if bird.url %}
+						<div class="mt-4">
+							<a href="{{ bird.url }}" target="_blank" class="btn btn-sm btn-info text-white">
+								Voir la source
+							</a>
+						</div>
+					{% endif %}
 				</div>
 			</div>
 		{% else %}
-			<h1 class="mb-4">Oiseau non trouvé</h1>
-			<p>L'oiseau que vous recherchez n'existe pas.</p>
+			<h1 class="h3 mb-4 text-danger">Oiseau non trouvé</h1>
+			<p class="alert alert-danger">L'oiseau que vous recherchez n'existe pas ou a été supprimé.</p>
 		{% endif %}
 
-		<div class="container my-4 justify-content-center d-flex gap-3">
-			<a href="{{ path('admin.bird.index') }}" class="btn btn-primary">Retour</a>
+		{# Bouton de retour unifié à l'intérieur du conteneur #}
+		<div class="mt-4 justify-content-center d-flex gap-3">
+			<a href="{{ path('admin.bird.index') }}" class="btn btn-secondary btn-sm">
+				Retour à la liste
+			</a>
 		</div>
-	{% endblock %}
+
+	</div> {# <- Le container principal se ferme maintenant proprement ici #}
+{% endblock %}
