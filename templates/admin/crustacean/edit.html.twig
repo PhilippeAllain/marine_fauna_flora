@@ -1,14 +1,20 @@
 {% extends 'admin/admin.html.twig' %}
 
-{% block title 'Crustacé : ' ~ crustacean.name %}
+{% block title 'Crustacé : ' ~ (crustacean.name|default('Inconnu')) %}
 
 {% block body %}
-	<div class="container border rounded shadow">
+	<div class="container border rounded shadow p-3 mt-2 bg-white">
 
-		{% if crustacean is not null %}
+		{% if crustacean is defined and crustacean is not null %}
 			<h1 class="mb-4">Modifier le crustacé : "{{ crustacean.name }}"</h1>
-			<div class="card">
-				<img src="{{ vich_uploader_asset(crustacean, 'thumbnailFile') }}" alt="{{ crustacean.name }}" class="img-fluid mb-4" style="max-width: 200px;">
+
+			<div class="card mb-3">
+				{% if crustacean.thumbnailName is defined and crustacean.thumbnailName is not empty %}
+					<div class="p-3 border-bottom bg-light text-center">
+						<img src="{{ vich_uploader_asset(crustacean, 'thumbnailFile') }}" alt="{{ crustacean.name }}" class="img-fluid rounded" style="max-height: 200px; object-fit: contain;">
+					</div>
+				{% endif %}
+
 				<div class="card-body">
 					{{ form_start(form) }}
 					{{ form_row(form.name) }}
@@ -19,13 +25,23 @@
 					{{ form_end(form) }}
 				</div>
 			</div>
-		</div>
-	{% else %}
-		<h1 class="mb-4">Crustacé non trouvé</h1>
-		<p>Le crustacé que vous essayez de modifier n'existe pas.</p>
-	{% endif %}
-</div>
 
-<div class="container my-4 justify-content-center d-flex gap-3">
-	<a href="{{ path('admin.crustacean.index') }}" class="btn btn-primary">Retour</a>
-</div>{% endblock %}
+			<div>
+				{% set back_url = app.request.headers.get('referer') %}
+				<a href="{{ back_url ?: path('admin.crustacean.index') }}" class="btn btn-sm btn-secondary">
+					Retour
+				</a>
+			</div>
+	
+		{% else %}
+			<h1 class="mb-4 text-danger">Crustacé non trouvé</h1>
+			<p>Le crustacé que vous essayez de modifier n'existe pas.</p>
+			<a href="{{ path('admin.crustacean.index') }}" class="btn btn-sm btn-primary">
+				Retour à la liste
+			</a>
+		{% endif %}
+	</div>
+{% endblock %}
+
+
+	

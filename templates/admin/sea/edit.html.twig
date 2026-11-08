@@ -1,28 +1,39 @@
 {% extends 'admin/admin.html.twig' %}
 
-{% block title 'Océan/Mer : ' ~ sea.name %}
+{% block title 'Océan/Mer : ' ~ (sea.name is defined ? sea.name : '') %}
 
 {% block body %}
-	<div class="container border rounded shadow">
+<div class="container border rounded shadow p-3 mt-2 bg-white">
 
-		{% if sea is not null %}
-			<h1 class="mb-4">Modifier l'océan/mer : "{{ sea.name }}"</h1>
-			<div class="card">
-				<img src="{{ vich_uploader_asset(sea, 'thumbnailFile') }}" alt="{{ sea.name }}" class="img-fluid mb-4" style="max-width: 200px;">
-				<div class="card-body">
-					{{ form_start(form) }}
-					{{ form_row(form.name) }}
-					{{ form_row(form.content) }}
-					{{ form_end(form) }}
-				</div>
+	{% if sea is not null %}
+		<h1 class="mb-4">Modifier l'océan/mer : "{{ sea.name }}"</h1>
+		
+		<div class="card mb-3">
+			{% if sea.thumbnailName is defined and sea.thumbnailName %}
+				<img src="{{ vich_uploader_asset(sea, 'thumbnailFile') }}" alt="{{ sea.name }}" class="img-fluid p-3" style="max-width: 200px;">
+			{% endif %}
+			<div class="card-body">
+				{{ form_start(form) }}
+				{{ form_row(form.name) }}
+				{{ form_row(form.content) }}
+				{{ form_row(form.thumbnailFile) }}
+				{{ form_end(form) }}
 			</div>
+		</div>
+
+		<div class="mt-4">
+			{% set back_url = app.request.headers.get('referer') %}
+			<a href="{{ back_url ?: path('admin.sea.index') }}" class="btn btn-sm btn-secondary">
+				Retour
+			</a>
 		</div>
 	{% else %}
 		<h1 class="mb-4">Océan/mer non trouvé</h1>
 		<p>L'océan/mer que vous essayez de modifier n'existe pas.</p>
+		<a href="{{ path('admin.sea.index') }}" class="btn btn-sm btn-primary">
+			Retour à la liste
+		</a>
 	{% endif %}
-</div>
 
-<div class="container my-4 justify-content-center d-flex gap-3">
-	<a href="{{ path('admin.sea.index') }}" class="btn btn-primary">Retour</a>
-</div>{% endblock %}
+</div>
+{% endblock %}

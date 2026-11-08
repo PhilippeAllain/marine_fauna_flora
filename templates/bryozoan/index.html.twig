@@ -4,24 +4,20 @@
 
 {% block body %}
 
-	<!-- Conteneur principal flex-column -->
 	<div class="container-fluid container-md mt-4 p-4 border rounded shadow text-center d-flex flex-column justify-content-between" style="background-color: var(--emerald-blue-light); min-height: auto;">
 		
-		<!-- Conteneur du haut -->
 		<div>
-			<!-- Zone d'en-tête avec bouton retour aligné à gauche et titre centré -->
+
 			<div class="d-flex align-items-center mb-4 position-relative justify-content-center">
 				<h1 class="m-0 text-emerald-blue font-weight-bold">Les bryozoaires</h1>
 			</div>
 			
-			<!-- Formulaire de recherche centré -->
 			<div class="mb-4 p-3 p-md-4 border border-emerald-blue rounded d-flex justify-content-center align-items-center bg-white shadow-sm">
 				<div class="w-100" style="max-width: 600px;">
 					{% include 'components/_search_data.html.twig' with {'form': form} only %}
 				</div>
 			</div>
 
-			<!-- Grille responsive centrée -->
 			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-4 justify-content-center">
 				{% for bryozoan in bryozoans %}
 					<div class="col">
@@ -45,7 +41,7 @@
 		</div>
 
 	</div>
-	<!-- Pagination forcée tout en bas -->
+
 	<div class="d-flex justify-content-center mt-auto pt-3">
 		{{ knp_pagination_render(bryozoans) }}
 	</div>

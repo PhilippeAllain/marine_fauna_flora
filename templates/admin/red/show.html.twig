@@ -1,35 +1,61 @@
 {% extends 'admin/admin.html.twig' %}
 
-{% block title 'Algue rouge : ' ~ red.name %}
+{% block title 'Algue rouge : ' ~ (red.name|default('Inconnu')) %}
 
 {% block body %}
-	<div class="container w-50 mt-4 p-3 border rounded shadow">
+	<div class="container w-100 mt-4 p-3 border rounded shadow bg-white">
 
-		{% if red is not null %}
-			<h1 class="mb-4">Détails de l'algue rouge : "{{ red.name }}"</h1>
-			<div class="card">
-				<div class="card-body">
-					{% if red.thumbnail %}
-						<div class="card-card-img-top mb-3">
-							<img src="{{ vich_uploader_asset(red, 'thumbnailFile') }}" alt="{{ red.name }}" class="img-fluid mb-4" style="max-width: 200px;">
+		{% if red is defined and red is not null %}
+			<h1 class="mb-4 text-center">Détails de l'algue rouge</h1>
+
+			<div class="card shadow-sm">
+				<div class="card-header bg-light">
+					<h2 class="h5 mb-0 fw-bold">{{ red.name }}</h2>
+				</div>
+
+				<div class="card-body text-center">
+				
+					{% if red.thumbnailName is defined and red.thumbnailName is not empty %}
+						<div class="mb-3 text-center">
+							<img src="{{ vich_uploader_asset(red, 'thumbnailFile') }}" alt="{{ red.name }}" class="img-fluid rounded mb-3 shadow-sm" style="max-height: 250px; object-fit: contain;">
 						</div>
 					{% endif %}
-					<div class="card-body">
-						<h2 class="card-header">{{ red.name }}</h2>
+				
+					<div class="card-body p-4">
+					
+					
+						{# Affichage propre de la DCI / Description #}
+						<div class="card-text text-muted lh-base mb-4 p-3 bg-white rounded border">
+							{{ red.content|default('Aucune description disponible.')|nl2br }}
+						</div>
 
-						<h3 class="card-title m-3">{{ red.content | nl2br }}</h3>
-						<p class="card-text m-3 text-center">
-							<a href="{{ red.url }}" target="_blank" class="btn btn-info mb-3">Voir la source</a>
-						</p>
+						{# Bouton Source si l'URL est renseignée #}
+						{% if red.url %}
+							<div class="text-center">
+								<a href="{{ red.url }}" target="_blank" class="btn btn-info mt-2 border border-5 border-primary">
+									<i class="bi bi-box-arrow-up-right me-1"></i> Voir la source
+								</a>
+							</div>
+						{% endif %}
 					</div>
 				</div>
-			</div>
 		{% else %}
-			<h1 class="mb-4">Algue rouge non trouvée</h1>
-			<p>L'algue rouge que vous recherchez n'existe pas.</p>
+			<div class="alert alert-danger text-center my-4" role="alert">
+				<h4 class="alert-heading fw-bold">Algue rouge non trouvée</h4>
+				<p class="mb-0">L'algue rouge que vous recherchez n'existe pas ou a été supprimée.</p>
+			</div>
 		{% endif %}
 
-		<div class="container my-4 justify-content-center d-flex gap-3">
-			<a href="{{ path('admin.red.index') }}" class="btn btn-primary">Retour</a>
+		{# Bouton Retour unifié #}
+		<div class="d-flex justify-content-center mt-3">
+			{% set back_url = app.request.headers.get('referer') %}
+			{% set is_internal_url = back_url and app.request.host in back_url %}
+			
+			<a href="{{ is_internal_url ? back_url : path('admin.red.index') }}" class="btn btn-secondary px-4 shadow-sm">
+				Retour à la liste
+			</a>
 		</div>
-	{% endblock %}
+
+	</div>
+{% endblock %}
+

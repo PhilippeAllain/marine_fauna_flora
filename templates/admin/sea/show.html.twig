@@ -3,29 +3,50 @@
 {% block title 'Océan/Mer : ' ~ sea.name %}
 
 {% block body %}
-	<div class="container mt-4">
-
+	<div class="container w-100 mt-4 p-3 border rounded shadow bg-white">
+		
 		{% if sea is not null %}
-			<h1 class="mb-4">Détails de l'océan/mer : "{{ sea.name }}"</h1>
-			<div class="card">
-				<div class="card-body">
-					<h5 class="card-title">{{ sea.name }}</h5>
+			<h1 class="mb-4 text-center">Détails du terme : "{{ sea.name }}"</h1>
+				
+			<div class="card shadow-sm">
+				<div class="card-header bg-light">
+					<h2 class="h5 mb-0 fw-bold">{{ sea.name }}</h2>
+				</div>
+
+				<div class="card-body text-center">
+
 					{% if sea.thumbnail %}
-						<div class="card-card-img-top mb-3">
-							<img src="{{ vich_uploader_asset(sea, 'thumbnailFile') }}" alt="{{ sea.name }}" class="img-fluid mb-4" style="max-width: 200px;">
+						<div class="mb-3 text-center">
+							<img src="{{ vich_uploader_asset(sea, 'thumbnailFile') }}" alt="{{ sea.name }}" class="img-fluid rounded mx-auto d-block" style="max-width: 200px;">
 						</div>
-						<p class="card-text">{{ sea.content | nl2br }}</p>
-						<a href="{{ sea.url }}" target="_blank" class="btn btn-info mb-3">Voir la source</a>
+					{% endif %}
+					<div class="text-start border-top pt-3 mt-3">
+						<p class="card-text text-muted" style="white-space: pre-line;">{{ sea.content|nl2br }}</p>
+					</div>
+						
+						
+					{% if sea.url %}
+						<div class="text-center"> {# Centre le bouton "Voir la source" #}
+							<a href="{{ sea.url }}" target="_blank" class="btn btn-info mt-2 border border-5 border-primary">Voir la source</a>
+						</div>
 					{% endif %}
 				</div>
 			</div>
-		</div>
-	{% else %}
-		<h1 class="mb-4">Océan/mer non trouvé</h1>
-		<p>L'océan/mer que vous recherchez n'existe pas.</p>
-	{% endif %}
+		{% else %}
+			<h1 class="mb-4 text-center">Océan/mer non trouvé</h1>
+			<p class="alert alert-danger text-center">L'océan/mer que vous recherchez n'existe pas ou a été supprimé.</p>
+		{% endif %}
+		
 
-	<div class="container my-4 justify-content-center d-flex gap-3">
-		<a href="{{ path('admin.sea.index') }}" class="btn btn-primary">Retour</a>
+		{# Zone des boutons de retour, elle aussi centrée juste en dessous de la carte #}
+		<div class="container mt-4 justify-content-center d-flex gap-3">
+			{% set back_url = app.request.headers.get('referer') %}
+			<a href="{{ back_url ? back_url : path('admin.sea.index') }}" class="btn btn-info border border-5 border-primary">
+				Retour
+			</a>
+		</div>
+
 	</div>
 {% endblock %}
+
+

@@ -1,12 +1,12 @@
 {% extends 'admin/admin.html.twig' %}
 
-{% block title 'Ajouter un tunicier' %}
+{% block title 'Ajouter un bryozoaire' %}
 
 
 {% block body %}
 
 	<div class="container mt-4 p-3 border rounded shadow">
-		<h1 class="text-center m-4">Ajouter un tunicier</h1>
+		<h1 class="text-center m-4">Ajouter un bryozoaire</h1>
 		<div class="card">
 			<div class="card-body">
 				{{ form_start(form) }}
@@ -21,7 +21,7 @@
 		</div>
 	</div>
 	<div class="container my-4 justify-content-center d-flex gap-3">
-		<a href="{{ path('admin.tunicate.index') }}" class="btn btn-primary">Retour</a>
+		<a href="{{ path('admin.bryozoan.index') }}" class="btn btn-primary">Retour</a>
 	</div>
 	
 {% endblock %}

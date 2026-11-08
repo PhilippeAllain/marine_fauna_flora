@@ -15,6 +15,12 @@
 					{{ form_row(form.thumbnailFile) }}
 				{{ form_end(form) }}
 			</div>
+			<div class="mt-4">
+				{% set back_url = app.request.headers.get('referer') %}
+				<a href="{{ back_url ?: path('admin.glossary.index') }}" class="btn btn-secondary">
+					Retour
+				</a>
+			</div>
 		</div>
 	</div>
 {% endblock %}

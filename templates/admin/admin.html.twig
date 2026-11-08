@@ -6,11 +6,10 @@
 		<meta property="og:description" content="Informations sur la faune et flore marine."/>
 		<meta property="og:title" content="Marine Fauna Flora"/>
 		<title>
-			{% block title %}Administration
-			{% endblock %}
+			{% block title %}Administration{% endblock %}
 		</title>
-		<!--<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>"> -->
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous"> {% block stylesheets %}{% endblock %}
+
+		{% block stylesheets %}{% endblock %}
 
 		{% block javascripts %}
 			{% block importmap %}
@@ -18,8 +17,10 @@
 			{% endblock %}
 		{% endblock %}
 	</head>
-	<body>
-		<nav class="navbar bg-primary navbar-expand-lg" data-bs-theme="dark">
+
+	<body class="d-flex flex-column min-vh-100">
+	
+		<nav class="navbar navbar-expand-lg bg-body-tertiary">
 			<div class="container-fluid">
 				<a class="navbar-brand" href="{{ path('admin') }}">Administration</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,10 +29,10 @@
 				<div class="collapse navbar-collapse" id="navbarNav">
 					<ul class="navbar-nav">
 						<li class="nav-item">
-							<a class="nav-link {{ app.current_route() starts with 'admin.glossary.' ? 'active' : '' }}" href="{{ path('admin.glossary.index') }}">Glossaire</a>
+							<a class="nav-link {{ app.request.attributes.get('_route') starts with 'admin.glossary.' ? 'active' : '' }}" href="{{ path('admin.glossary.index') }}">Glossaire</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link {{ app.current_route() starts with 'admin.sea.' ? 'active' : '' }}" href="{{ path('admin.sea.index') }}">Océans-Mers</a>
+							<a class="nav-link {{ app.request.attributes.get('_route') starts with 'admin.sea.' ? 'active' : '' }}" href="{{ path('admin.sea.index') }}">Océans-Mers</a>
 						</li>
 						
 						<!-- MENU : LES VERTÉBRÉS -->
@@ -40,18 +41,17 @@
 								Les vertébrés
 							</a>
 							<ul class="dropdown-menu">
-								<!-- Remplacement de nav-link par dropdown-item pour respecter la structure Bootstrap -->
 								<li>
-									<a class="dropdown-item {{ app.current_route() starts with 'admin.mammal.' ? 'active' : '' }}" href="{{ path('admin.mammal.index') }}">Mammifères</a>
+									<a class="dropdown-item {{ app.request.attributes.get('_route') starts with 'admin.mammal.' ? 'active' : '' }}" href="{{ path('admin.mammal.index') }}">Mammifères</a>
 								</li>
 								<li>
-									<a class="dropdown-item {{ app.current_route() starts with 'admin.fish.' ? 'active' : '' }}" href="{{ path('admin.fish.index') }}">Poissons</a>
+									<a class="dropdown-item {{ app.request.attributes.get('_route') starts with 'admin.bird.' ? 'active' : '' }}" href="{{ path('admin.bird.index') }}">Oiseaux</a>
 								</li>
 								<li>
-									<a class="dropdown-item {{ app.current_route() starts with 'admin.reptile.' ? 'active' : '' }}" href="{{ path('admin.reptile.index') }}">Reptiles</a>
+									<a class="dropdown-item {{ app.request.attributes.get('_route') starts with 'admin.fish.' ? 'active' : '' }}" href="{{ path('admin.fish.index') }}">Poissons</a>
 								</li>
 								<li>
-									<a class="dropdown-item {{ app.current_route() starts with 'admin.bird.' ? 'active' : '' }}" href="{{ path('admin.bird.index') }}">Oiseaux</a>
+									<a class="dropdown-item {{ app.request.attributes.get('_route') starts with 'admin.reptile.' ? 'active' : '' }}" href="{{ path('admin.reptile.index') }}">Reptiles</a>
 								</li>
 							</ul>
 						</li>
@@ -63,28 +63,28 @@
 							</a>
 							<ul class="dropdown-menu">
 								<li>
-									<a class="dropdown-item {{ app.current_route() starts with 'admin.tunicate.' ? 'active' : '' }}" href="{{ path('admin.tunicate.index') }}">Tuniciers</a>
+									<a class="dropdown-item {{ app.request.attributes.get('_route') starts with 'admin.bryozoan.' ? 'active' : '' }}" href="{{ path('admin.bryozoan.index') }}">Bryozoaires</a>
 								</li>
 								<li>
-									<a class="dropdown-item {{ app.current_route() starts with 'admin.echinoderm.' ? 'active' : '' }}" href="{{ path('admin.echinoderm.index') }}">Échinodermes</a>
+									<a class="dropdown-item {{ app.request.attributes.get('_route') starts with 'admin.cnidarian.' ? 'active' : '' }}" href="{{ path('admin.cnidarian.index') }}">Cnidaires</a>
 								</li>
 								<li>
-									<a class="dropdown-item {{ app.current_route() starts with 'admin.bryozoan.' ? 'active' : '' }}" href="{{ path('admin.bryozoan.index') }}">Bryozoaires</a>
+									<a class="dropdown-item {{ app.request.attributes.get('_route') starts with 'admin.crustacean.' ? 'active' : '' }}" href="{{ path('admin.crustacean.index') }}">Crustacés</a>
 								</li>
 								<li>
-									<a class="dropdown-item {{ app.current_route() starts with 'admin.crustacean.' ? 'active' : '' }}" href="{{ path('admin.crustacean.index') }}">Crustacés</a>
+									<a class="dropdown-item {{ app.request.attributes.get('_route') starts with 'admin.echinoderm.' ? 'active' : '' }}" href="{{ path('admin.echinoderm.index') }}">Échinodermes</a>
 								</li>
 								<li>
-									<a class="dropdown-item {{ app.current_route() starts with 'admin.polychaete.' ? 'active' : '' }}" href="{{ path('admin.polychaete.index') }}">Polychètes</a>
+									<a class="dropdown-item {{ app.request.attributes.get('_route') starts with 'admin.sponge.' ? 'active' : '' }}" href="{{ path('admin.sponge.index') }}">Éponges</a>
 								</li>
 								<li>
-									<a class="dropdown-item {{ app.current_route() starts with 'admin.mollusc.' ? 'active' : '' }}" href="{{ path('admin.mollusc.index') }}">Mollusques</a>
+									<a class="dropdown-item {{ app.request.attributes.get('_route') starts with 'admin.mollusc.' ? 'active' : '' }}" href="{{ path('admin.mollusc.index') }}">Mollusques</a>
 								</li>
 								<li>
-									<a class="dropdown-item {{ app.current_route() starts with 'admin.cnidarian.' ? 'active' : '' }}" href="{{ path('admin.cnidarian.index') }}">Cnidaires</a>
-								</li>
+									<a class="dropdown-item {{ app.request.attributes.get('_route') starts with 'admin.polychaete.' ? 'active' : '' }}" href="{{ path('admin.polychaete.index') }}">Polychètes</a>
+								</li>							
 								<li>
-									<a class="dropdown-item {{ app.current_route() starts with 'admin.sponge.' ? 'active' : '' }}" href="{{ path('admin.sponge.index') }}">Éponges</a>
+									<a class="dropdown-item {{ app.request.attributes.get('_route') starts with 'admin.tunicate.' ? 'active' : '' }}" href="{{ path('admin.tunicate.index') }}">Tuniciers</a>
 								</li>
 							</ul>
 						</li>
@@ -96,17 +96,16 @@
 							</a>
 							<ul class="dropdown-menu">
 								<li>
-									<!-- Correction orthographique : "Plantes à fleurs" -->
-									<a class="dropdown-item {{ app.current_route() starts with 'admin.plant.' ? 'active' : '' }}" href="{{ path('admin.plant.index') }}">Plantes à fleurs</a>
+									<a class="dropdown-item {{ app.request.attributes.get('_route') starts with 'admin.brown.' ? 'active' : '' }}" href="{{ path('admin.brown.index') }}">Algues brunes</a>
 								</li>
 								<li>
-									<a class="dropdown-item {{ app.current_route() starts with 'admin.green.' ? 'active' : '' }}" href="{{ path('admin.green.index') }}">Algues vertes</a>
+									<a class="dropdown-item {{ app.request.attributes.get('_route') starts with 'admin.red.' ? 'active' : '' }}" href="{{ path('admin.red.index') }}">Algues rouges</a>
 								</li>
 								<li>
-									<a class="dropdown-item {{ app.current_route() starts with 'admin.brown.' ? 'active' : '' }}" href="{{ path('admin.brown.index') }}">Algues brunes</a>
+									<a class="dropdown-item {{ app.request.attributes.get('_route') starts with 'admin.green.' ? 'active' : '' }}" href="{{ path('admin.green.index') }}">Algues vertes</a>
 								</li>
 								<li>
-									<a class="dropdown-item {{ app.current_route() starts with 'admin.red.' ? 'active' : '' }}" href="{{ path('admin.red.index') }}">Algues rouges</a>
+									<a class="dropdown-item {{ app.request.attributes.get('_route') starts with 'admin.plant.' ? 'active' : '' }}" href="{{ path('admin.plant.index') }}">Plantes à fleurs</a>
 								</li>
 							</ul>
 						</li>
@@ -114,13 +113,13 @@
 				</div>
 			</div>
 		</nav>
-		<div class="container my-4">
+
+		<div class="container my-4 flex-grow-1">
 			{% include 'partials/flash.html.twig' %}
 			{% block body %}{% endblock %}
 		</div>
 
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-		<footer class="bg-primary text-center text-lg-start text-white mt-4 fixed-bottom">
+		<footer class="bg-primary text-center text-lg-start text-white mt-4">
 			<div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
 				© Copyright: Frager Philippe
 			</div>

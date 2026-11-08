@@ -1,35 +1,60 @@
 {% extends 'admin/admin.html.twig' %}
 
-{% block title 'Bryozoaire : ' ~ bryozoan.name %}
+{% block title 'Bryozoaire : ' ~ (bryozoan.name|default('Inconnu')) %}
 
 {% block body %}
-	<div class="container w-50 mt-4 p-3 border rounded shadow">
+	<div class="container w-100 mt-4 p-3 border rounded shadow bg-white">
 
-		{% if bryozoan is not null %}
-			<h1 class="mb-4">Détails du bryozoaire : "{{ bryozoan.name }}"</h1>
-			<div class="card">
-				<div class="card-body">
-					{% if bryozoan.thumbnail %}
-						<div class="card-card-img-top mb-3">
-							<img src="{{ vich_uploader_asset(bryozoan, 'thumbnailFile') }}" alt="{{ bryozoan.name }}" class="img-fluid mb-4" style="max-width: 200px;">
+		{% if bryozoan is defined and bryozoan is not null %}
+			<h1 class="mb-4 text-center">Détails du bryozoaire</h1>
+
+			<div class="card shadow-sm">
+				<div class="card-header bg-light">
+					<h2 class="h5 mb-0 fw-bold">{{ bryozoan.name }}</h2>
+				</div>
+
+				<div class="card-body text-center">
+				
+					{% if bryozoan.thumbnailName is defined and bryozoan.thumbnailName is not empty %}
+						<div class="mb-3 text-center">
+							<img src="{{ vich_uploader_asset(bryozoan, 'thumbnailFile') }}" alt="{{ bryozoan.name }}" class="img-fluid rounded mb-3 shadow-sm" style="max-height: 250px; object-fit: contain;">
 						</div>
 					{% endif %}
-					<div class="card-body">
-						<h2 class="card-header">{{ bryozoan.name }}</h2>
+				
+					<div class="card-body p-4">
+					
+					
+						{# Affichage propre de la DCI / Description #}
+						<div class="card-text text-muted lh-base mb-4 p-3 bg-white rounded border">
+							{{ bryozoan.content|default('Aucune description disponible.')|nl2br }}
+						</div>
 
-						<h3 class="card-title m-3">{{ bryozoan.content | nl2br }}</h3>
-						<p class="card-text m-3 text-center">
-							<a href="{{ bryozoan.url }}" target="_blank" class="btn btn-info mb-3">Voir la source</a>
-						</p>
+						{# Bouton Source si l'URL est renseignée #}
+						{% if bryozoan.url %}
+							<div class="text-center">
+								<a href="{{ bryozoan.url }}" target="_blank" class="btn btn-info mt-2 border border-5 border-primary">
+									<i class="bi bi-box-arrow-up-right me-1"></i> Voir la source
+								</a>
+							</div>
+						{% endif %}
 					</div>
 				</div>
-			</div>
 		{% else %}
-			<h1 class="mb-4">Bryozoan non trouvé</h1>
-			<p>Le bryozoaire que vous recherchez n'existe pas.</p>
+			<div class="alert alert-danger text-center my-4" role="alert">
+				<h4 class="alert-heading fw-bold">Bryozoaire non trouvé</h4>
+				<p class="mb-0">Le bryozoaire que vous recherchez n'existe pas ou a été supprimé.</p>
+			</div>
 		{% endif %}
 
-		<div class="container my-4 justify-content-center d-flex gap-3">
-			<a href="{{ path('admin.bryozoan.index') }}" class="btn btn-primary">Retour</a>
+		{# Bouton Retour unifié #}
+		<div class="d-flex justify-content-center mt-3">
+			{% set back_url = app.request.headers.get('referer') %}
+			{% set is_internal_url = back_url and app.request.host in back_url %}
+			
+			<a href="{{ is_internal_url ? back_url : path('admin.bryozoan.index') }}" class="btn btn-secondary px-4 shadow-sm">
+				Retour à la liste
+			</a>
 		</div>
-	{% endblock %}
+
+	</div>
+{% endblock %}

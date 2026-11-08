@@ -52,7 +52,7 @@ final class SeaController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($sea);
             $em->flush();
-            $this->addFlash('success', 'Terme du glossaire créé avec succès !');
+            $this->addFlash('success', 'Terme Océan/mer créé avec succès !');
             return $this->redirectToRoute('admin.sea.index');
         }
         return $this->render('admin/sea/create.html.twig', [
@@ -84,7 +84,7 @@ final class SeaController extends AbstractController
             
             $em->flush();
 
-            $this->addFlash('success', 'Le terme du glossaire a été modifié avec succès !');
+            $this->addFlash('success', 'Le terme Océan/mer a été modifié avec succès !');
             return $this->redirectToRoute('admin.sea.index');
         }
 
@@ -99,7 +99,7 @@ final class SeaController extends AbstractController
     {
         $em->remove($sea);
         $em->flush();
-        $this->addFlash('success', 'Le terme du glossaire a bien été supprimé');
+        $this->addFlash('success', 'Le terme Océan/mer a bien été supprimé');
         return $this->redirectToRoute('admin.sea.index');
     }
 }

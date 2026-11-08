@@ -24,7 +24,7 @@ final class ContactController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             try{
             $mail = (new TemplatedEmail())
-                ->to('philippe.frager@google.com')
+                ->to('webmaster@fauneetfloremarine.site')
                 ->from($data->email)
                 ->subject('Demande de contact')
                 ->htmlTemplate('emails/contact.html.twig')
@@ -38,7 +38,7 @@ final class ContactController extends AbstractController
         }
 
     return $this->render('contact/contact.html.twig', [
-        'form' => $form->createView(),
+        'form' => $form,
     ]);
     }
 }

@@ -3,49 +3,52 @@
 {% block title 'Glossaire : ' ~ (glossary ? glossary.word : 'Terme introuvable') %}
 
 {% block body %}
-	<div class="container mt-4">
+	<div class="container w-100 mt-4 p-3 border rounded shadow bg-white">
+		
 		{% if glossary is not null %}
-			<h1 class="mb-4">Détails du terme : "{{ glossary.word }}"</h1>
-			
-			<div class="card">
-				<div class="card-body">
-					<h5 class="card-title mb-4">{{ glossary.word }}</h5>
-					
-					{# L'image est affichée uniquement si elle existe #}
+			<h1 class="mb-4 text-center">Détails du terme : "{{ glossary.word }}"</h1>
+				
+			<div class="card shadow-sm">
+				<div class="card-header bg-light">
+					<h2 class="h5 mb-0 fw-bold">{{ glossary.word }}</h2>
+				</div>
+
+				<div class="card-body text-center">
+
 					{% if glossary.thumbnail %}
-						<div class="mb-3">
-							<img src="{{ vich_uploader_asset(glossary, 'thumbnailFile') }}" alt="{{ glossary.word }}" class="img-fluid" style="max-width: 200px;">
+						<div class="mb-3 text-center">
+							<img src="{{ vich_uploader_asset(glossary, 'thumbnailFile') }}" alt="{{ glossary.word }}" class="img-fluid rounded mx-auto d-block" style="max-width: 200px;">
 						</div>
 					{% endif %}
-
-					{# Le contenu et les exemples s'affichent même s'il n'y a pas d'image #}
-					<p class="card-text">{{ glossary.content|nl2br }}</p>
-					
+					<div class="text-start border-top pt-3 mt-3">
+						<p class="card-text text-muted" style="white-space: pre-line;">{{ glossary.content|nl2br }}</p>
+					</div>
+						
 					{% if glossary.example %}
 						<p class="card-text">
 							<strong>Exemples :</strong><br>
 							{{ glossary.example|nl2br }}
 						</p>
 					{% endif %}
-					
+						
 					{% if glossary.url %}
-						<a href="{{ glossary.url }}" target="_blank" class="btn btn-info mt-2 border border-5 border-primary">Voir la source</a>
+						<div class="text-center"> {# Centre le bouton "Voir la source" #}
+							<a href="{{ glossary.url }}" target="_blank" class="btn btn-info mt-2 border border-5 border-primary">Voir la source</a>
+						</div>
 					{% endif %}
 				</div>
 			</div>
 		{% else %}
-			<h1 class="mb-4">Terme du glossaire non trouvé</h1>
-			<p class="alert alert-danger">Le terme que vous recherchez n'existe pas ou a été supprimé.</p>
+			<h1 class="mb-4 text-center">Terme du glossaire non trouvé</h1>
+			<p class="alert alert-danger text-center">Le terme que vous recherchez n'existe pas ou a été supprimé.</p>
 		{% endif %}
-	</div> {# <- Le container principal se ferme correctement ici pour tout le monde #}
-
-	<div class="container my-4 justify-content-center d-flex gap-3">
-		{# On vérifie si la page précédente existe dans l'historique de navigation #}
-		{% set back_url = app.request.headers.get('referer') %}
-
-		<a href="{{ back_url ? back_url : path('admin.glossary.index') }}" class="btn btn-info border border-5 border-primary">
-			Retour
-		</a>
+		
+		<div class="container mt-4 justify-content-center d-flex gap-3">
+			{% set back_url = app.request.headers.get('referer') %}
+			<a href="{{ back_url ? back_url : path('admin.glossary.index') }}" class="btn btn-info border border-5 border-primary">
+				Retour
+			</a>
+		</div>
 
 	</div>
 {% endblock %}

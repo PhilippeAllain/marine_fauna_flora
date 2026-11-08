@@ -3,54 +3,63 @@
 {% block title 'Les échinodermes' %}
 
 {% block body %}
-	<div class="container w-75 mt-4 p-3 border rounded shadow">
-		<div class="container p-4">
-			<h1 class="text-center">Les échinodermes</h1>
-		</div>
+		<div class="container w-75 mt-4">
+		<div class="card shadow">
+			
+			<div class="card-header bg-light d-flex justify-content-between align-items-center py-3">
+				<h1 class="h3 mb-0 text-dark">Les échinodermes</h1>
+				<a class="btn btn-primary btn-sm" href="{{ path('admin.echinoderm.create') }}">Ajouter un échinoderme</a>
+			</div>
 
-		<div class="mb-3 p-4 border rounded">
-			{% include 'components/_search_data.html.twig' with {'form': form} only %}
-		</div>
+			<div class="card-body">
+				<div class="mb-4 p-3 bg-light border rounded">
+					{% include 'components/_search_data.html.twig' with {'form': form} only %}
+				</div>
 
-		<div class="container p-4">
-			<p>
-				<a class="btn btn-primary btn-sm" href="{{ path('admin.echinoderm.create') }}">Ajouter un échinoderme.</a>
-			</p>
-		</div>
+				<div class="table-responsive">
+					<table class="table table-hover align-middle">
+						<thead class="table-light">
+							<tr>
+								<th scope="col">{{ knp_pagination_sortable(echinoderms, 'Nom', 'e.name') }}</th>
+								<th scope="col">{{ knp_pagination_sortable(echinoderms, 'DCI', 'e.dci') }}</th>
+								<th scope="col" style="width: 217px" class="text-end pe-4">Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for echinoderm in echinoderms %}
+								<tr>
+									<td>
+										<a href="{{ path('admin.echinoderm.show', {id: echinoderm.id}) }}" class="fw-bold text-decoration-none">{{ echinoderm.name }}</a>
+									</td>
+									<td>
+										<a href="{{ path('admin.echinoderm.show', {id: echinoderm.id}) }}" class="text-decoration-none">{{ echinoderm.dci }}</a>
+									</td>
+									<td>
+										<div class="d-flex gap-1 justify-content-end pe-3">
+											<a class="btn btn-outline-primary btn-sm" href="{{ path('admin.echinoderm.edit', {id: echinoderm.id}) }}">Éditer</a>
+											<form action="{{ path('admin.echinoderm.delete', {id: echinoderm.id}) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce échinoderme ?');">
+												<input type="hidden" name="_method" value="DELETE">
+												<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ echinoderm.id) }}">
+												<button class="btn btn-outline-danger btn-sm" type="submit">Supprimer</button>
+											</form>
+										</div>
+									</td>
+								</tr>
+							{% else %}
+								<tr>
+									<td colspan="2" class="text-center text-muted py-4">Aucun échinoderme trouvé.</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
 
-		<div class="container p-4">
-			<table class="table">
-				<thead>
-					<tr>
-						<th>{{ knp_pagination_sortable(echinoderms, 'Nom', 'e.name') }}</th>
-						<th>{{ knp_pagination_sortable(echinoderms, 'DCI', 'e.dci') }}</th>
-						<th style="width: 217px">Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for echinoderm in echinoderms %}
-						<tr>
-							<td>
-								<a href="{{ path('admin.echinoderm.show', {id: echinoderm.id}) }}">{{ echinoderm.name }}</a>
-							</td>
-							<td>
-								<a href="{{ path('admin.echinoderm.show', {id: echinoderm.id}) }}">{{ echinoderm.dci }}</a>
-							</td>
-							<td>
-								<div class="d-flex gap-1">
-									<a class="btn btn-primary btn-sm" href="{{ path('admin.echinoderm.edit', {id : echinoderm.id}) }}">Editer</a>
-									<form action="{{ path('admin.echinoderm.delete', {id: echinoderm.id}) }}" method="POST">
-										<input type="hidden" name="_method" value="DELETE">
-										<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ echinoderm.id) }}">
-										<button class="btn btn-danger btn-sm" type="submit">Supprimer</button>
-									</form>
-								</div>
-							</td>
-						</tr>
-					</td>
-				</tbody>
-			</tr>
-		{% endfor %}
-	</tbody>
-</table></div><div class="container p-4">
-<div class="d-flex justify-content-center">{{ knp_pagination_render(echinoderms) }}</div></div></div>{% endblock %}
+				<div class="d-flex justify-content-center mt-4">
+					{{ knp_pagination_render(echinoderms) }}
+				</div>
+			</div>
+
+		</div>
+	</div>
+{% endblock %}
+
