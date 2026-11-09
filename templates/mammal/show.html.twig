@@ -4,7 +4,7 @@
 
 {% block body %}
 	{% set back_url = app.request.headers.get('referer') %}
-	{% set fallback_url = path('mamal.index') %}
+	{% set fallback_url = path('mammal.index') %}
 	{% set is_internal_referer = back_url and app.request.schemeAndHttpHost in back_url %}
 	<div class="container-fluid container-md mt-4 p-4 border rounded shadow text-center d-flex flex-column justify-content-between" style="background-color: var(--emerald-blue-light); min-height: auto;">
 		{# Image centrée et redimensionnée proprement pour mobile #}
